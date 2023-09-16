@@ -1,6 +1,9 @@
 ■ 画面遷移図
 https://www.figma.com/file/BFcNSvPwZTvkSdirEw6Ptb/%E5%9B%B3%E9%91%91%E3%82%AF%E3%83%AA%E3%82%A8%E3%82%A4%E3%83%88?type=design&node-id=0%3A1&mode=design&t=v262gEWiYkg2AI9j-1
 
+■ ER図
+https://github.com/furukoshi12/zukan-create/pull/20
+
 
 ■ サービス名
 図鑑くりえいと
@@ -63,3 +66,5 @@ Cloud Vision API（画像から日本語抽出）
 Google Maps API
 Google Cloud Vision API
 React DnD
+
+[def]: <スクリーンショット 2023-09-16 15.25.10.png>
