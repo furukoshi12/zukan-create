@@ -4,7 +4,7 @@ https://www.figma.com/file/BFcNSvPwZTvkSdirEw6Ptb/%E5%9B%B3%E9%91%91%E3%82%AF%E3
 
 ■ サービス名
 図鑑くりえいと
-z
+
 ■ サービス概要
 動物園や街中で出会った生き物を記録していくことでオリジナルの図鑑が作成できるサービスです。
 図鑑のテンプレートやユーザーが入力フォームを追加しテンプレートをアレンジする機能を付け、完成した図鑑を共有し合うことができます。
@@ -57,9 +57,9 @@ x(旧twitter)やtimesなどSNSで発信
    * 使用可能アイコン一覧
 
 ■ 機能の実装方針予定
-Rails７系
-Tailwind CSS
+RailsAPIモード
+React
+interact.js
 Cloud Vision API（画像から日本語抽出）
 Google Maps API
 Google Cloud Vision API
-React DnD
