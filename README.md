@@ -57,9 +57,9 @@ x(旧twitter)やtimesなどSNSで発信
    * 使用可能アイコン一覧
 
 ■ 機能の実装方針予定
-Rails７系
-Tailwind CSS
+RailsAPIモード
+React
+interact.js
 Cloud Vision API（画像から日本語抽出）
 Google Maps API
 Google Cloud Vision API
-React DnD
