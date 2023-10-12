@@ -5,7 +5,7 @@ function MyPostList() {
   const [myPosts, setMyPosts] = useState([]);
 
   useEffect(() => {
-    client.get('/illustrated_books')
+    client.get('/user/illustrated_books')
       .then(response => {
         console.log(response)
         setMyPosts(response.data.data)
