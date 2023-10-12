@@ -1,17 +1,18 @@
 import React from 'react'
-import { SidebarDate } from './SidebarDate'
+import { SidebarData } from './SidebarData'
 import SidebarIcon from './SidebarIcon'
+import { Link } from 'react-router-dom';
 
 function Sidebar() {
   return (
     <div className='Sidebar'>
-      <p className='logo'>
+      <Link to="/" className='logo'>
         illustrated<br />
         book create
-      </p>
+      </Link>
       <SidebarIcon />
       <ul className='SidebarList'>
-        {SidebarDate.map((value, key) => {
+        {SidebarData.map((value, key) => {
           return(
             <li
               key={key}

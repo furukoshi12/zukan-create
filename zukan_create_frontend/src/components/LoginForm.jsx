@@ -1,9 +1,12 @@
 import React, { useState } from 'react'
 import client from '../lib/api/client'
+import Sidebar from './Sidebar';
+import { useNavigate } from 'react-router-dom';
 
 function LoginForm() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const history = useNavigate();
 
   const handleLogin = async () => {
     try {
@@ -25,15 +28,23 @@ function LoginForm() {
       localStorage.setItem('access-token', accessToken);
       console.log('Access token saved:', accessToken);
 
-      window.location.reload();
+      history('/mypage')
     }
   };
 
   return (
-    <div>
-      <input type='email' placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
-      <input type='password' placeholder='Password' value={password} onChange={(e) => setPassword(e.target.value)} />
-      <button onClick={handleLogin}>Login</button>
+    <div className='container'>
+      <div className='content'>
+      <Sidebar />
+        <div className='login-form'>
+          <h1>Login</h1>
+          <p>Email</p>
+          <input type='email' placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
+          <p>Password</p>
+          <input type='password' placeholder='Password' value={password} onChange={(e) => setPassword(e.target.value)} />
+          <button onClick={handleLogin}>Login</button>
+        </div>
+      </div>
     </div>
   );
 }
