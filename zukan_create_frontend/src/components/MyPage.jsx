@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import Sidebar from './Sidebar';
-import MyPostList from './MyPostList';
-import LikeList from './LikeList';
+import MyIllustratedBooks from './MyIllustratedBooks';
+import LikeList from './Likes';
 
 function MyPage() {
-  const [activeTab, setActiveTab] = useState('myPosts');
+  const [activeTab, setActiveTab] = useState('myIllustratedBooks');
 
   const handleTabChange = (tabName) => {
     setActiveTab(tabName);
@@ -16,21 +16,21 @@ function MyPage() {
         <Sidebar />
         <div className='tabs'>
           <button
-            onClick={() => handleTabChange('myPosts')}
-            className={activeTab === 'myPosts' ? 'active' : ''}
+            onClick={() => handleTabChange('myIllustratedBooks')}
+            className={activeTab === 'myIllustratedBooks' ? 'active' : ''}
           >
             Post
           </button>
           <button
               onClick={() => handleTabChange('like')}
-              className={activeTab === 'like' ? 'active' : ''}
+              className={activeTab === 'likes' ? 'active' : ''}
             >
               Like
           </button>
         </div>
         <div className='tab-content'>
-          {activeTab === 'myPosts' && <MyPostList />}
-          {activeTab === 'like' && <LikeList />}
+          {activeTab === 'myIllustratedBooks' && <MyIllustratedBooks />}
+          {activeTab === 'likes' && <LikeList />}
         </div>
       </div>
     </div>
