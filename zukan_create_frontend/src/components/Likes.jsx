@@ -1,31 +1,19 @@
-import React, { useEffect, useState } from 'react'
-import client from '../lib/api/client';
+import React from 'react';
+import LikeButton from './LikeButton';
 
-function Likes() {
-  const [likes, setLikes] = useState([]);
-
-  useEffect(() => {
-    client.get('/user/illustrated_books/likes')
-    .then((response) => {
-      setLikes(response.data)
-    })
-    .catch((error) => {
-      console.log('API_reuest_error', error);
-    });
-  }, []);
-
+function Likes({ likes }) {
   return (
     <div className='card-container'>
-    <ul>
-    {likes.map(like => (
-      <li key={like.id} className='illustrated-book-card'>
-        <p className='title'>{like.attributes.title}</p>
-      </li>
-    ))}
-    </ul>
-  </div>
-
-  )
+      <ul>
+        {likes.map(like => (
+          <li key={like.id} className='illustrated-book-card'>
+            <p className='title'>{like.attributes.title}</p>
+            <LikeButton illustratedBookId={like.id} />
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
 }
 
 export default Likes;
