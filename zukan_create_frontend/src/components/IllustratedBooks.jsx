@@ -26,6 +26,7 @@ function IllustratedBooks(){
             {illustratedBooks.map(illustratedBook => (
               <li key={illustratedBook.id} className='illustrated-book-card'>
                 <p className='title'>{illustratedBook.attributes.title}</p>
+                <p className='tag'>{illustratedBook.attributes.tags}</p>
                 <LikeButton illustratedBookId={illustratedBook.id}/>
               </li>
             ))}

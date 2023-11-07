@@ -1,8 +1,12 @@
 import React from 'react'
-import Home from '@mui/icons-material/Home';
-import MailIcon from '@mui/icons-material/Mail';
-import { Grading } from '@mui/icons-material';
-import ListIcon from '@mui/icons-material/List';
+import {
+  Home,
+  Mail as MailIcon,
+  Grading as GradingIcon,
+  List as ListIcon,
+  Create as CreateIcon,
+} from '@mui/icons-material';
+
 
 export const SidebarData = [
   {
@@ -15,10 +19,14 @@ export const SidebarData = [
     icon: <ListIcon />,
     link: "/illustratedbooks",
   },
-
+  {
+    title: "Create New IllustratedBook",
+    icon: <CreateIcon />,
+    link: "/new",
+  },
   {
     title: "Regulation",
-    icon: <Grading />,
+    icon: <GradingIcon />,
     link: "/regulation",
   },
   {
