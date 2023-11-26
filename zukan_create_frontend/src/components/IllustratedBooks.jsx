@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import Sidebar from './Sidebar'
+import Sidebar from './sidebar/Sidebar'
 import client from '../lib/api/client'
 import LikeButton from './LikeButton';
 

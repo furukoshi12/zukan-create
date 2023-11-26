@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import client from '../lib/api/client'
-import Sidebar from './Sidebar';
+import Sidebar from './sidebar/Sidebar';
 import { useNavigate } from 'react-router-dom';
 
 function LoginForm() {
