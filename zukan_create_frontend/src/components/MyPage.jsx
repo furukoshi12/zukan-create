@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import Sidebar from './Sidebar';
+import Sidebar from './sidebar/Sidebar';
 import MyIllustratedBooks from './MyIllustratedBooks';
 import Likes from './Likes';
 import client from '../lib/api/client';

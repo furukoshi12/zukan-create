@@ -1,16 +1,22 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Sidebar from './Sidebar';
+import Sidebar from './sidebar/Sidebar';
 import client from '../lib/api/client';
 import { WithContext as ReactTags } from 'react-tag-input';
+import AddField from './AddField';
 
 export const CreateIllustratedBook = () => {
   const [title, setTitle] = useState('');
   const [suggestions, setSuggestions] = useState([]);
   const [tags, setTags] = useState([]);
+  const [inputs, setInputs] = useState([]);
   const deleteDoubleArray = [...new Set(tags.map(tag => tag.text))];
   const tagStr = deleteDoubleArray.join(' ');
   const history = useNavigate();
+
+  const handleAddInput = (inputData) => {
+    setInputs([...inputs, inputData]);
+  };
 
   useEffect(() => {
     const fetchTags = async () => {
@@ -66,7 +72,7 @@ export const CreateIllustratedBook = () => {
   return (
     <div className='container'>
       <div className='content'>
-        <Sidebar />
+        <Sidebar onAddInput={handleAddInput}/>
         <form>
           <input
             mb="24px"
@@ -75,6 +81,9 @@ export const CreateIllustratedBook = () => {
             onChange={(e) => handleChange(e)}
             value={title}
           />
+          <div className='entry-editor' style={{backgroundColor: "white", height: "600px"}}>
+          <AddField data={inputs} />
+          </div>
           <ReactTags
             placeholder="Enterでタグ追加"
             tags={tags}

@@ -1,7 +1,7 @@
 html, body, #root {
   height: 100%;
   margin: 0;
-  background-color: #F0EBBB;
+  background-color: #fffac2;
 }
 
 @font-face {
@@ -50,7 +50,7 @@ ul li {
 
 .top-logo {
   font-family: 'MochiyPopOne';
-  color: tomato;
+  color: #f9a980;
   float: left;
   margin: 10px;
 }
@@ -74,7 +74,7 @@ ul li {
   margin: 10px;
   padding: 10px 20px;
   color: white;
-  background-color: tomato;
+  background-color: #f9a980;
   border-radius: 5px;
   border: none;
   font-weight: bold;
@@ -95,7 +95,7 @@ h1 {
   height: 100%;
   width: 40%;
   max-width: 300px;
-  background-color: tomato;
+  background-color: #f9a980;
   flex: 0 0 25%;
   float: left;
   text-align: center;
@@ -107,11 +107,10 @@ h1 {
 }
 
 .SidebarList #active{
-  background-color: rgb(255, 71, 71);
+  background-color: #f69679;
 }
 
 .SidebarList .row {
-  width: 100%;
   height: 60px;
   display: flex;
   color: white;
@@ -121,8 +120,7 @@ h1 {
 
 .SidebarList .row:hover {
   cursor: pointer;
-  width: 100%;
-  background-color: rgb(255, 71, 71);
+  background-color: #f69679;
 }
 
 .row #icon {
