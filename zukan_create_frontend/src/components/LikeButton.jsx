@@ -6,7 +6,7 @@ function LikeButton({ illustratedBookId }) {
   const [liked, setLiked] = useState(false);
 
   useEffect(() => {
-    client.get(`/likes/${illustratedBookId}`)
+    client.get(`/user/likes/${illustratedBookId}`)
     .then((response) => {
       console.log('likeexists', response)
       setLiked(response.data.likeExists);
@@ -19,7 +19,7 @@ function LikeButton({ illustratedBookId }) {
   }, [illustratedBookId]);
 
   const handleLikeClick = () => {
-    client.post('/likes', { illustrated_book_id: illustratedBookId })
+    client.post('/user/likes', { illustrated_book_id: illustratedBookId })
       .then(() => {
         setLiked(!liked);
         console.log(liked)
