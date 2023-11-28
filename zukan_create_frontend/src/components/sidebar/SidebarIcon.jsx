@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import Icon from '../images/top.webp';
-import client from '../lib/api/client';
+import client from '../../lib/api/client';
+import Icon from '../../images/top.webp'
 
 function SidebarIcon() {
   const [userName, setUserName] = useState('');

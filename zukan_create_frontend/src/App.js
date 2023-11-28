@@ -3,6 +3,9 @@ import { Link, Route, BrowserRouter as Router, Routes, useLocation } from 'react
 import LoginForm from './components/LoginForm';
 import MyPage from './components/MyPage';
 import SignUp from './components/SignUp';
+import IllustratedBooks from './components/IllustratedBooks';
+import { CreateIllustratedBook } from './components/CreateIllustratedBook';
+import FieldManagement from './components/dashboard/FieldManagement';
 
 function App() {
   return (
@@ -12,6 +15,9 @@ function App() {
           <Route path="/signup" element={<SignUp />} />
           <Route path="/login" element={<LoginForm />} />
           <Route path="/mypage" element={<MyPage />} />
+          <Route path="/illustratedbooks" element={<IllustratedBooks />} />
+          <Route path="/new" element={<CreateIllustratedBook />} />
+          <Route path="/dashboard/fields" element={<FieldManagement />} />
       </Routes>
     </Router>
   );

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import Sidebar from './Sidebar'
+import Sidebar from './sidebar/Sidebar'
 import client from '../lib/api/client'
 import LikeButton from './LikeButton';
 
@@ -26,6 +26,7 @@ function IllustratedBooks(){
             {illustratedBooks.map(illustratedBook => (
               <li key={illustratedBook.id} className='illustrated-book-card'>
                 <p className='title'>{illustratedBook.attributes.title}</p>
+                <p className='tag'>{illustratedBook.attributes.tags}</p>
                 <LikeButton illustratedBookId={illustratedBook.id}/>
               </li>
             ))}

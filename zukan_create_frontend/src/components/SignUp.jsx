@@ -1,11 +1,10 @@
 import React, { useState } from 'react'
-import Sidebar from './Sidebar'
+import Sidebar from './sidebar/Sidebar'
 import client from '../lib/api/client';
 import { useNavigate } from 'react-router-dom';
 
 function SignUp(){
   const history = useNavigate();
-
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');

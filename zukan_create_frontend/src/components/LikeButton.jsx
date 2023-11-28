@@ -8,10 +8,7 @@ function LikeButton({ illustratedBookId }) {
   useEffect(() => {
     client.get(`/user/likes/${illustratedBookId}`)
     .then((response) => {
-      console.log('likeexists', response)
       setLiked(response.data.likeExists);
-      console.log('liked', liked)
-
     })
     .catch((error) => {
       console.log('liked_error', error);
@@ -22,7 +19,6 @@ function LikeButton({ illustratedBookId }) {
     client.post('/user/likes', { illustrated_book_id: illustratedBookId })
       .then(() => {
         setLiked(!liked);
-        console.log(liked)
       })
       .catch((error) => {
         console.error('Like_error', error);
