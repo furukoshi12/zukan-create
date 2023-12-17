@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import client from '../../lib/api/client';
-import Sidebar from '../sidebar/Sidebar';
+import AdminSidebar from './AdminSidebar';
+import Fields from '../modal/Fields';
 
 const FieldManagement = () => {
   const [label, setLabel] = useState('');
@@ -68,7 +69,7 @@ const FieldManagement = () => {
 
   return (
     <div>
-      <Sidebar />
+      <AdminSidebar />
       <h2>Field Design Management</h2>
       <form onSubmit={handleSubmit}>
         <label htmlFor="title">label:</label>
@@ -139,6 +140,8 @@ const FieldManagement = () => {
 
         <button type="submit">Create Field</button>
       </form>
+
+      <Fields />
     </div>
   );
 };
