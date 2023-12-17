@@ -7,7 +7,6 @@ function Fields({ onAddInput }) {
   useEffect(() => {
     client.get('/field_designs')
       .then((response) => {
-        console.log(response)
         setFieldDesigns(response.data.data)
       })
       .catch((error) => {
@@ -22,8 +21,8 @@ function Fields({ onAddInput }) {
   return (
     <div className='container' style={{backgroundColor: "white"}}>
       <ul>
-        {fieldDesigns.map(fieldDesign => (
-          <li key={fieldDesign.id} className='field-card' onClick={() => handleSelectInput(fieldDesign)}>
+        {fieldDesigns.map((fieldDesign, index) => (
+          <li key={index} id={index} className='field-card' onClick={() => handleSelectInput(fieldDesign)}>
             <label>{fieldDesign.attributes.label}</label>
             <textarea
               type="text"

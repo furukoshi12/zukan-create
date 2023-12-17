@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import ReactModal from 'react-modal';
 import Fields from './Fields';
+import Templates from './Templates';
 
-export const Modal = ({ onAddInput }) => {
+export const Modal = ({ onAddInput, onAddTemplate }) => {
   const [fieldModal, setFieldModal] = useState(false);
   const [templateModal, setTemplateModal] = useState(false);
 
@@ -50,6 +51,7 @@ export const Modal = ({ onAddInput }) => {
         contentLabel="Template Modal"
       >
         Template modal
+        <Templates onAddTemplate={onAddTemplate}/>
         <button onClick={handleCloseTemplateModal}>Close</button>
       </ReactModal>
     </div>
