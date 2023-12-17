@@ -6,6 +6,8 @@ import SignUp from './components/SignUp';
 import IllustratedBooks from './components/IllustratedBooks';
 import { CreateIllustratedBook } from './components/CreateIllustratedBook';
 import FieldManagement from './components/dashboard/FieldManagement';
+import TemplateManagement from './components/dashboard/TemplateManagement';
+import AdminController from './components/dashboard/AdminController';
 
 function App() {
   return (
@@ -18,6 +20,8 @@ function App() {
           <Route path="/illustratedbooks" element={<IllustratedBooks />} />
           <Route path="/new" element={<CreateIllustratedBook />} />
           <Route path="/dashboard/fields" element={<FieldManagement />} />
+          <Route path="/dashboard/templates" element={<TemplateManagement />} />
+          <Route path="/dashboard" element={<AdminController />} />
       </Routes>
     </Router>
   );

@@ -33,26 +33,24 @@ function MyPage() {
 
   return (
     <div className='container'>
-      <div className='content'>
-        <Sidebar />
-        <div className='tabs'>
-          <button
-            onClick={() => handleTabChange('illustrated_books')}
-            className={activeTab === 'illustrated_books' ? 'active' : ''}
-          >
-            Illustrated Books
-          </button>
-          <button
-            onClick={() => handleTabChange('likes')}
-            className={activeTab === 'likes' ? 'active' : ''}
-          >
-            Likes
-          </button>
-        </div>
-        <div className='tab-content'>
-          {activeTab === 'illustrated_books' && <MyIllustratedBooks illustratedBooks={illustratedBooks} />}
-          {activeTab === 'likes' && <Likes likes={likes} />}
-        </div>
+      <Sidebar />
+      <div className='tabs'>
+        <button
+          onClick={() => handleTabChange('illustrated_books')}
+          className={activeTab === 'illustrated_books' ? 'active' : ''}
+        >
+          Illustrated Books
+        </button>
+        <button
+          onClick={() => handleTabChange('likes')}
+          className={activeTab === 'likes' ? 'active' : ''}
+        >
+          Likes
+        </button>
+      </div>
+      <div className='tab-content'>
+        {activeTab === 'illustrated_books' && <MyIllustratedBooks illustratedBooks={illustratedBooks} />}
+        {activeTab === 'likes' && <Likes likes={likes} />}
       </div>
     </div>
   );
