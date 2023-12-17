@@ -25,9 +25,6 @@ html, body, #root {
   display: flex;
 }
 
-.content {
-  flex: 1;
-}
 
 .top-page {
   background-image: url("./images/top.webp");
@@ -93,7 +90,6 @@ h1 {
 
 .Sidebar{
   height: 100%;
-  width: 40%;
   max-width: 300px;
   background-color: #f9a980;
   flex: 0 0 25%;
