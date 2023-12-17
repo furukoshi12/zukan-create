@@ -108,7 +108,7 @@ export const CreateIllustratedBook = () => {
             value={title}
           />
           <div className="draggable-area" style={{backgroundColor: 'white', width: '210mm', height: '297mm', position: 'relative'}}>
-            <AddTemplate templateData={template} />
+            <AddTemplate templateData={template} onUpdatePosition={updateInputPosition} />
             <AddField data={inputs} onUpdatePosition={updateInputPosition} />
           </div>
           <ReactTags
