@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react'
+import Draggable from './Draggable';
 
-function AddTemplate({ templateData }) {
+function AddTemplate({ templateData, onUpdatePosition }) {
+  Draggable('.field-card', onUpdatePosition);
   const [inputs, setInputs] = useState([]);
 
   useEffect (() => {
@@ -31,7 +33,7 @@ function AddTemplate({ templateData }) {
           <div key={templateData.id} className='template-card'>
             <ul>
               {inputs.map(input =>(
-                  <li key={input.uuid} style={{ position: 'absolute', left: input.xPosition, top: input.yPosition }} >
+                  <li key={input.uuid} className='field-card' style={{ position: 'absolute', left: input.xPosition, top: input.yPosition }} >
                     <label>{input.label}</label>
                     <textarea
                       type="text"
