@@ -4,18 +4,41 @@ import Sidebar from './sidebar/Sidebar';
 import client from '../lib/api/client';
 import { WithContext as ReactTags } from 'react-tag-input';
 import AddField from './AddField';
+import AddTemplate from './AddTemplate';
+import { v4 as uuidv4 } from 'uuid';
 
 export const CreateIllustratedBook = () => {
   const [title, setTitle] = useState('');
   const [suggestions, setSuggestions] = useState([]);
   const [tags, setTags] = useState([]);
   const [inputs, setInputs] = useState([]);
+  const [template, setTemplate] = useState(null)
   const deleteDoubleArray = [...new Set(tags.map(tag => tag.text))];
   const tagStr = deleteDoubleArray.join(' ');
   const history = useNavigate();
 
   const handleAddInput = (inputData) => {
-    setInputs([...inputs, inputData]);
+    const uuid = uuidv4();
+    setInputs((prevInputs) => [
+      ...prevInputs,
+      { ...inputData, x: 0, y: 0, uuid: uuid},
+    ]);
+  };
+
+  const handleAddTemplate = (templateData) => {
+    setTemplate(templateData);
+  };
+
+  const updateInputPosition = (uuid, x, y) => {
+    setInputs((prevInputs) => {
+      return prevInputs.map((input) => {
+
+        if(input.uuid === uuid) {
+          return { ...input, x, y };
+        }
+        return input;
+      });
+    });
   };
 
   useEffect(() => {
@@ -60,7 +83,11 @@ export const CreateIllustratedBook = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await client.post('/user/illustrated_books', generateParams);
+      const params = {
+        ...generateParams,
+        ...(template && { templateId: template.id }),
+      };
+      const response = await client.post('/user/illustrated_books', params);
       setTitle("");
       setTags([]);
       history("/mypage");
@@ -71,8 +98,7 @@ export const CreateIllustratedBook = () => {
 
   return (
     <div className='container'>
-      <div className='content'>
-        <Sidebar onAddInput={handleAddInput}/>
+      <Sidebar onAddInput={handleAddInput} onAddTemplate={handleAddTemplate} />
         <form>
           <input
             mb="24px"
@@ -81,8 +107,9 @@ export const CreateIllustratedBook = () => {
             onChange={(e) => handleChange(e)}
             value={title}
           />
-          <div className='entry-editor' style={{backgroundColor: "white", height: "600px"}}>
-          <AddField data={inputs} />
+          <div className="draggable-area" style={{backgroundColor: 'white', width: '210mm', height: '297mm', position: 'relative'}}>
+            <AddTemplate templateData={template} />
+            <AddField data={inputs} onUpdatePosition={updateInputPosition} />
           </div>
           <ReactTags
             placeholder="Enterでタグ追加"
@@ -98,7 +125,6 @@ export const CreateIllustratedBook = () => {
             戻る
           </button>
         </form>
-      </div>
     </div>
   );
 };
