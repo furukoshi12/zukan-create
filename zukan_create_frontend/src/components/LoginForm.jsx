@@ -34,8 +34,8 @@ function LoginForm() {
 
   return (
     <div className='container'>
-      <div className='content'>
       <Sidebar />
+      <div className='content'>
         <div className='login-form'>
           <h1>Login</h1>
           <p>Email</p>

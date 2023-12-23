@@ -25,6 +25,9 @@ html, body, #root {
   display: flex;
 }
 
+.content {
+  flex: 1;
+}
 
 .top-page {
   background-image: url("./images/top.webp");
@@ -41,7 +44,7 @@ ul {
 ul li {
   list-style: none;
   display: inline;
-  text-align: center;
+  text-align: left;
   margin-left: 10px;
 }
 
@@ -54,10 +57,10 @@ ul li {
 
 .login-form {
   display: flex;
-  flex-direction: column; /* 要素を縦に配置 */
-  justify-content: center; /* 中央に配置 */
-  align-items: center; /* 水平方向に中央に配置 */
-  height: 100%; /* 親要素（.container）の高さいっぱいに広げる */
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
 }
 
 .login-form input {
@@ -86,6 +89,8 @@ h1 {
   color: white;
   font-family: 'MochiyPopOne';
   text-decoration: none;
+  display: flex;
+  justify-content: center;
 }
 
 .Sidebar{
@@ -93,8 +98,6 @@ h1 {
   max-width: 300px;
   background-color: #f9a980;
   flex: 0 0 25%;
-  float: left;
-  text-align: center;
 }
 
 .SidebarList {
@@ -110,7 +113,6 @@ h1 {
   height: 60px;
   display: flex;
   color: white;
-  justify-content: center;
   align-items: center;
 }
 
@@ -120,9 +122,8 @@ h1 {
 }
 
 .row #icon {
-  flex: 30%;
+  flex: 15%;
   display: grid;
-  place-items: center;
 }
 
 .row #title {
@@ -144,14 +145,17 @@ h1 {
   font-weight: 600;
   font-size: 20px;
 }
+.modal-list {
+  margin-left: 30%;
+}
 
 .illustrated-book-card {
-  width: 25%; /* カードの幅を調整して4つが横に並ぶようにする */
+  width: 25%;
   margin: 10px;
   padding: 20px;
   border: 1px solid #ccc;
-  display: inline-block; /* カードを横並びに表示 */
-  vertical-align: top; /* カードの上端を揃える */
+  display: inline-block;
+  vertical-align: top;
   box-sizing: border-box;
 }
 
@@ -172,6 +176,6 @@ h1 {
 
 .card-container {
   display: flex;
-  flex-wrap: wrap; /* カードが横に並びきれない場合に次の行に折り返す */
-  justify-content: flex-start; /* 左寄せに配置 */
+  flex-wrap: wrap;
+  justify-content: flex-start;
 }

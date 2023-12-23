@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import Draggable from './Draggable';
+import Draggable from './interactjs/Draggable';
+import Resizable from './interactjs/Resizable';
 
-function AddTemplate({ templateData, onUpdatePosition }) {
+function AddTemplate({ templateData, onUpdatePosition, onUpdateSize }) {
   Draggable('.field-card', onUpdatePosition);
+  Resizable('.field-card-text', onUpdateSize);
   const [inputs, setInputs] = useState([]);
 
   useEffect (() => {
@@ -12,12 +14,14 @@ function AddTemplate({ templateData, onUpdatePosition }) {
 
       const inputsWithPositionAndStyle = templateFieldDesigns.map((design) => {
         const fieldDesign = fieldDesigns.find((fd) => fd.id === design.relationships.fieldDesign.data.id);
-
         return {
           ...fieldDesign.attributes,
           templateId: design.relationships.template.data.id,
           xPosition: design.attributes.xPosition,
           yPosition: design.attributes.yPosition,
+          width: design.attributes.width,
+          height: design.attributes.height,
+          id: design.id
         };
       });
 
@@ -25,34 +29,33 @@ function AddTemplate({ templateData, onUpdatePosition }) {
     }
   }, [templateData])
 
-
-
   return (
-    <div>
+    <>
       {templateData && (
-          <div key={templateData.id} className='template-card'>
-            <ul>
-              {inputs.map(input =>(
-                  <li key={input.uuid} className='field-card' style={{ position: 'absolute', left: input.xPosition, top: input.yPosition }} >
-                    <label>{input.label}</label>
-                    <textarea
-                      type="text"
-                      style={{
-                        backgroundColor: input.backgroundColor,
-                        color: input.color,
-                        borderColor: input.borderColor,
-                        borderStyle: input.borderStyle,
-                        borderRadius: input.borderRadius,
-                        fontFamily: input.fontFamily,
-                        fontSize: input.fontSize,
-                      }}
-                    />
-                  </li>
-                ))}
-            </ul>
-          </div>
+        <ul>
+          {inputs.map(input =>(
+              <li key={input.id} className='field-card' style={{ position: 'absolute', top: input.yPosition, left: input.xPosition}} >
+                <label>{input.label}</label>
+                <textarea
+                  type="text"
+                  className='field-card-text'
+                  style={{
+                    backgroundColor: input.backgroundColor,
+                    color: input.color,
+                    borderColor: input.borderColor,
+                    borderStyle: input.borderStyle,
+                    borderRadius: input.borderRadius,
+                    fontFamily: input.fontFamily,
+                    fontSize: input.fontSize,
+                    width: input.width,
+                    height: input.height,
+                  }}
+                />
+              </li>
+            ))}
+        </ul>
       )}
-    </div>
+    </>
   );
 }
 

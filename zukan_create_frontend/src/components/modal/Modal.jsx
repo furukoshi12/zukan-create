@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import ReactModal from 'react-modal';
 import Fields from './Fields';
 import Templates from './Templates';
+import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 
 export const Modal = ({ onAddInput, onAddTemplate }) => {
   const [fieldModal, setFieldModal] = useState(false);
@@ -24,12 +25,12 @@ export const Modal = ({ onAddInput, onAddTemplate }) => {
   }
 
   return (
-    <div>
+    <div className='modal-list'>
       <li 
         className="row"
         onClick={handleOpenFieldModal}
       >
-        Field List
+        <ChevronRightIcon/>Field List
       </li>
       <ReactModal
         isOpen={fieldModal}
@@ -44,7 +45,7 @@ export const Modal = ({ onAddInput, onAddTemplate }) => {
         className='row'
         onClick={handleOpenTemplateModal}
       >
-        Template List
+        <ChevronRightIcon/>Template List
       </li>
       <ReactModal
         isOpen={templateModal}

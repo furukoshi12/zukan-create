@@ -21,7 +21,7 @@ export const CreateIllustratedBook = () => {
     const uuid = uuidv4();
     setInputs((prevInputs) => [
       ...prevInputs,
-      { ...inputData, x: 0, y: 0, uuid: uuid},
+      { ...inputData, x: 0, y: 0, width: null, height: null, uuid: uuid},
     ]);
   };
 
@@ -32,9 +32,19 @@ export const CreateIllustratedBook = () => {
   const updateInputPosition = (uuid, x, y) => {
     setInputs((prevInputs) => {
       return prevInputs.map((input) => {
-
         if(input.uuid === uuid) {
-          return { ...input, x, y };
+          return { ...input, x, y, width, height };
+        }
+        return input;
+      });
+    });
+  };
+
+  const updateInputSize = (uuid, width, height) => {
+    setInputs((prevInputs) => {
+      return prevInputs.map((input) => {
+        if(input.uuid === uuid) {
+          return { ...input, width, height };
         }
         return input;
       });
@@ -99,17 +109,17 @@ export const CreateIllustratedBook = () => {
   return (
     <div className='container'>
       <Sidebar onAddInput={handleAddInput} onAddTemplate={handleAddTemplate} />
+      <div className='content'>
         <form>
           <input
-            mb="24px"
             type="text"
-            placeholder="title"
+            placeholder="Japanes Name"
             onChange={(e) => handleChange(e)}
             value={title}
           />
           <div className="draggable-area" style={{backgroundColor: 'white', width: '210mm', height: '297mm', position: 'relative'}}>
-            <AddTemplate templateData={template} onUpdatePosition={updateInputPosition} />
-            <AddField data={inputs} onUpdatePosition={updateInputPosition} />
+            <AddTemplate templateData={template} onUpdatePosition={updateInputPosition} onUpdateSize={updateInputSize} />
+            <AddField data={inputs} onUpdatePosition={updateInputPosition} onUpdateSize={updateInputSize}/>
           </div>
           <ReactTags
             placeholder="Enterでタグ追加"
@@ -125,6 +135,7 @@ export const CreateIllustratedBook = () => {
             戻る
           </button>
         </form>
+      </div>
     </div>
   );
 };
