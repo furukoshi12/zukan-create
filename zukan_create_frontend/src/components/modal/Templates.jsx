@@ -3,12 +3,10 @@ import client from '../../lib/api/client';
 
 function Templates({ onAddTemplate }) {
   const [templates, setTemplates] = useState([]);
-  const [templateObj, setTemplateObj] = useState(null);
 
   useEffect(() => {
     client.get('/templates')
       .then((response) => {
-        setTemplateObj(response);
         setTemplates(response.data.data);
       })
       .catch((error) => {
@@ -17,23 +15,27 @@ function Templates({ onAddTemplate }) {
   }, []);
   
   const handleSelectTemplate = (selectTemplate) => {
-    const templateData = templateObj.data.data.find(template => template.id === selectTemplate.id);
-    if (templateData) {
-      const templateFieldDesignObjects = templateObj.data.included.filter(obj => 
-        obj.type === 'template_field_design' && obj.relationships.template.data.id === templateData.id
-      );
-      const fieldDesignObjects = templateFieldDesignObjects.flatMap((tempFieldObj) =>
-        templateObj.data.included.filter(obj =>
-          obj.type === 'field_design' && obj.id === tempFieldObj.relationships.fieldDesign.data.id
-        )
-      );
+    const templateId = selectTemplate.id
+    client.get(`/templates/${templateId}`)
+      .then((response) => {
+        const templateFieldDesignObjects = response.data.included.filter(obj => obj.type === 'template_field_design');
+
+        const fieldDesignsCount = response.data.data.relationships.fieldDesigns.data;
+        const includedFieldDesigns = response.data.included.filter(obj => obj.type === 'field_design');
+        const fieldDesignObjects = fieldDesignsCount.map(relationship => {
+          return includedFieldDesigns.find(included => included.id === relationship.id);
+        });
+
         onAddTemplate({
-          id: templateData.id,
+          id: templateId,
           templateFieldDesigns: templateFieldDesignObjects, 
           fieldDesigns: fieldDesignObjects,
         });
-    }
-  };
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+    };
 
   return (
     <div className='container' style={{ backgroundColor: "white" }}>
@@ -46,6 +48,6 @@ function Templates({ onAddTemplate }) {
       </ul>
     </div>
   );
-}
+};
 
 export default Templates;
