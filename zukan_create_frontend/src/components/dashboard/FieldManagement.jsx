@@ -46,7 +46,7 @@ const FieldManagement = () => {
     borderStyle: borderStyle,
     borderRadius: borderRadius,
     fontFamily: fontFamily,
-    fontSize: fontSize
+    fontSize: fontSize,
   };
 
   const handleSubmit = (e) => {
@@ -68,7 +68,7 @@ const FieldManagement = () => {
   };
 
   return (
-    <div>
+    <div className='container'>
       <AdminSidebar />
       <h2>Field Design Management</h2>
       <form onSubmit={handleSubmit}>
