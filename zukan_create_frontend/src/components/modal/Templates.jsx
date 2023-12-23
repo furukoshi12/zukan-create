@@ -16,7 +16,6 @@ function Templates({ onAddTemplate }) {
       });
   }, []);
   
-
   const handleSelectTemplate = (selectTemplate) => {
     const templateData = templateObj.data.data.find(template => template.id === selectTemplate.id);
     if (templateData) {
@@ -24,7 +23,7 @@ function Templates({ onAddTemplate }) {
         obj.type === 'template_field_design' && obj.relationships.template.data.id === templateData.id
       );
       const fieldDesignObjects = templateFieldDesignObjects.flatMap((tempFieldObj) =>
-        templateObj.data.included.filter(obj => 
+        templateObj.data.included.filter(obj =>
           obj.type === 'field_design' && obj.id === tempFieldObj.relationships.fieldDesign.data.id
         )
       );

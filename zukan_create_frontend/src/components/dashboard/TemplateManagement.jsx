@@ -3,16 +3,22 @@ import AddField from '../AddField';
 import client from '../../lib/api/client';
 import AdminSidebar from './AdminSidebar';
 import { v4 as uuidv4 } from 'uuid';
+import AddTemplate from '../AddTemplate';
 
 const TemplateManagement = () => {
   const [name, setName] = useState('');
   const [templateInputs, setTemplateInputs] = useState([]);
+  const [template, setTemplate] = useState(null)
+
+  const handleAddTemplate = (templateData) => {
+    setTemplate(templateData);
+  };
 
   const addInputToTemplate = (inputData) => {
     const uuid = inputData.uuid || uuidv4();
     setTemplateInputs((prevInputs) => [
       ...prevInputs,
-      { ...inputData, x: 0, y: 0, uuid: uuid},
+      { ...inputData, x: 0, y: 0, width: null, height: null, uuid: uuid},
     ]);
   };
 
@@ -21,6 +27,17 @@ const TemplateManagement = () => {
       return prevInputs.map((input) => {
         if(input.uuid === uuid) {
           return { ...input, x, y};
+        }
+        return input;
+      });
+    });
+  };
+
+  const updateInputSize = ( uuid, width, height) => {
+    setTemplateInputs((prevInputs) => {
+      return prevInputs.map((input) => {
+        if(input.uuid === uuid) {
+          return { ...input, width, height};
         }
         return input;
       });
@@ -38,6 +55,8 @@ const TemplateManagement = () => {
         field_design_id: input.id,
         x_position: input.x,
         y_position: input.y,
+        width: input.width,
+        height: input.height,
       }))
     },
   };
@@ -53,15 +72,17 @@ const TemplateManagement = () => {
 
   return (
     <div className='container'>
-      <AdminSidebar onAddInput={addInputToTemplate} />
-      <form onSubmit={(e) => handleSubmit(e)}>
-        <label>Template Name</label>
-        <input type='text' onChange={(e) => handleName(e)} value={name} />
-        <div className="draggable-area" style={{backgroundColor: 'white', width: '210mm', height: '297mm', position: 'relative'}}>
-          <AddField data={templateInputs} onUpdatePosition={updateInputPosition} />
-        </div>
-        <button type='submit'>Create Template</button>
-      </form>
+      <AdminSidebar onAddInput={addInputToTemplate} onAddTemplate={handleAddTemplate}/>
+      <div className='content'>
+        <form onSubmit={(e) => handleSubmit(e)}>
+          <input type='text' placeholder="Template Name" onChange={(e) => handleName(e)} value={name} />
+          <div className="draggable-area" style={{backgroundColor: 'white', width: '210mm', height: '297mm', position: 'relative'}}>
+            <AddTemplate templateData={template} onUpdatePosition={updateInputPosition} onUpdateSize={updateInputSize}/>
+            <AddField data={templateInputs} onUpdatePosition={updateInputPosition} onUpdateSize={updateInputSize}/>
+          </div>
+          <button type='submit'>Create Template</button>
+        </form>
+      </div>
     </div>
   );
 };
