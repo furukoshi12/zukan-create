@@ -8,7 +8,7 @@ function Sidebar({onAddInput, onAddTemplate}) {
   const isModalVisible = window.location.pathname === '/new';
 
   return (
-    <div style={{flex: 1}} >
+    <div style={{flex: 0.5}} >
     <div className='Sidebar'>
       <Link to="/" className='logo'>
         illustrated<br />

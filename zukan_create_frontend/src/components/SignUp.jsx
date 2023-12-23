@@ -34,8 +34,8 @@ function SignUp(){
 
   return (
     <div className='container'>
+      <Sidebar />
       <div className='content'>
-        <Sidebar />
         <div className='login-form'>
         {error && <div>{error}</div>}
           <h1>SignUp</h1>
