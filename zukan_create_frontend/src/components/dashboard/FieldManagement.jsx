@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import client from '../../lib/api/client';
-import AdminSidebar from './AdminSidebar';
+import AdminSidebar from './sidebar/AdminSidebar'
 import Fields from '../modal/Fields';
 
 const FieldManagement = () => {
