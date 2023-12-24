@@ -33,7 +33,7 @@ export const CreateIllustratedBook = () => {
     setInputs((prevInputs) => {
       return prevInputs.map((input) => {
         if(input.uuid === uuid) {
-          return { ...input, x, y, width, height };
+          return { ...input, x, y};
         }
         return input;
       });
