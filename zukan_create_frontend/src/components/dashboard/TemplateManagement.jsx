@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import AddField from '../AddField';
 import client from '../../lib/api/client';
-import AdminSidebar from './AdminSidebar';
+import AdminSidebar from './sidebar/AdminSidebar'
 import { v4 as uuidv4 } from 'uuid';
 import AddTemplate from '../AddTemplate';
 

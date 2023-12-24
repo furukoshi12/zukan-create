@@ -1,16 +1,30 @@
-import React from 'react'
-import AdminSidebar from './AdminSidebar'
-import Templates from '../modal/Templates'
+import React, { useState } from 'react';
+import AdminSidebar from './sidebar/AdminSidebar'
+import { UserManagement } from './UserManagement';
+import { PostManagement } from './PostManagement';
 
 const AdminController = () => {
+  const [selectedComponent, setSelectedComponent] = useState('');
+
+  const renderComponent = () => {
+    switch (selectedComponent) {
+      case 'UserManagement':
+        return <UserManagement />;
+      case 'PostManagement':
+        return <PostManagement />;
+        default:
+          return <UserManagement />;
+    }
+  };
+
   return (
     <div className='container'>
-      <AdminSidebar />
-      <div className="draggable-area" style={{clear: 'left', backgroundColor: 'white', width: '210mm', height: '297mm', position: 'relative'}}>
-      <Templates />
+      <AdminSidebar onSelectComponent={(component) => setSelectedComponent(component)} />
+      <div className='content'>
+        {renderComponent()}
       </div>
     </div>
-  )
-}
+  );
+};
 
 export default AdminController

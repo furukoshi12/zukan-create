@@ -1,30 +1,26 @@
-import React from 'react';
-import SidebarIcon from '../sidebar/SidebarIcon';
-import Modal from '../modal/Modal';
+import React, { useState } from 'react';
+import SidebarIcon from '../../sidebar/SidebarIcon';
+import Modal from '../../modal/Modal';
 
-const AdminSidebar = ({ onAddInput, onAddTemplate }) => {
-  const isModalVisible = window.location.pathname === '/dashboard/templates';
+const AdminSidebar = ({ onSelectComponent, onAddInput, onAddTemplate }) => {
+  const [selectedComponent, setSelectedComponent] = useState('UserManagement');
+  const isModalVisible = selectedComponent === 'TemplateManagement';
 
   const AdminSidebarData = [
     {
       title: "UserManagement",
-      link: "/dashboard/users",
     },
     {
       title: "PostManagement",
-      link: "/dashboard/illustrated_books",
     },
     {
       title: "TemplateManagement",
-      link: "/dashboard/templates",
     },
     {
       title: "FieldManagement",
-      link: "/dashboard/fields",
     },
     {
       title: "IconManagement",
-      link: "/dashboard/icons",
     },
   ];
 
@@ -36,10 +32,11 @@ const AdminSidebar = ({ onAddInput, onAddTemplate }) => {
           {AdminSidebarData.map((value, key) => (
               <li
                 key={key}
-                id={window.location.pathname === value.link ? "active" : ""}
+                id={ selectedComponent === value.title ? "active" : ""}
                 className="row"
                 onClick={() => {
-                  window.location.pathname = value.link;
+                  onSelectComponent(value.title);
+                  setSelectedComponent(value.title);
                 }}
               >
                 <div id="title">{value.title}</div>
