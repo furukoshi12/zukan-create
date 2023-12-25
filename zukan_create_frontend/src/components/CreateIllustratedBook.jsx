@@ -21,7 +21,7 @@ export const CreateIllustratedBook = () => {
     const uuid = uuidv4();
     setInputs((prevInputs) => [
       ...prevInputs,
-      { ...inputData, x: 0, y: 0, width: null, height: null, uuid: uuid},
+      { ...inputData, x: 0, y: 0, width: null, height: null, uuid: uuid },
     ]);
   };
 
@@ -51,6 +51,18 @@ export const CreateIllustratedBook = () => {
     });
   };
 
+  const onFieldContent = (uuid, value) => {
+    console.log(uuid, value)
+    setInputs((prevInputs) => {
+      return prevInputs.map((input) => {
+        if (input.uuid === uuid) {
+          return { ...input, content: value };
+        }
+        return input;
+      });
+    });
+  };
+
   useEffect(() => {
     const fetchTags = async () => {
       try {
@@ -71,10 +83,6 @@ export const CreateIllustratedBook = () => {
     history("/mypage");
   };
 
-  const generateParams = {
-    title: title,
-    tags: tagStr,
-  };
 
   const handleChange = (e) => {
     setTitle(e.target.value);
@@ -93,13 +101,22 @@ export const CreateIllustratedBook = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const params = {
-        ...generateParams,
-        ...(template && { templateId: template.id }),
+      const generateParams = {
+        tags: tagStr,
+        illustrated_book: {
+        title: title,
+        template_id: template.id,
+        illustrated_book_field_designs_attributes: inputs.map(input => ({
+          field_design_id: input.id,
+          content: input.content,
+        }))
+        }
       };
-      const response = await client.post('/user/illustrated_books', params);
+
+      const response = await client.post('/user/illustrated_books', generateParams);
       setTitle("");
       setTags([]);
+      setInputs([]);
       history("/mypage");
     } catch (error) {
       console.log(error);
@@ -118,8 +135,8 @@ export const CreateIllustratedBook = () => {
             value={title}
           />
           <div className="draggable-area" style={{backgroundColor: 'white', width: '210mm', height: '297mm', position: 'relative'}}>
-            <AddTemplate templateData={template} onUpdatePosition={updateInputPosition} onUpdateSize={updateInputSize} />
-            <AddField data={inputs} onUpdatePosition={updateInputPosition} onUpdateSize={updateInputSize}/>
+            <AddTemplate templateData={template} onFieldContent={onFieldContent} onUpdatePosition={updateInputPosition} onUpdateSize={updateInputSize} />
+            <AddField data={inputs} onFieldContent={onFieldContent} onUpdatePosition={updateInputPosition} onUpdateSize={updateInputSize}/>
           </div>
           <ReactTags
             placeholder="Enterでタグ追加"

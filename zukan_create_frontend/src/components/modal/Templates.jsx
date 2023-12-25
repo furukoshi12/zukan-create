@@ -25,7 +25,6 @@ function Templates({ onAddTemplate }) {
         const fieldDesignObjects = fieldDesignsCount.map(relationship => {
           return includedFieldDesigns.find(included => included.id === relationship.id);
         });
-
         onAddTemplate({
           id: templateId,
           templateFieldDesigns: templateFieldDesignObjects, 

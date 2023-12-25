@@ -2,7 +2,7 @@ import React from 'react'
 import Draggable from './interactjs/Draggable';
 import Resizable from './interactjs/Resizable';
 
-const AddField = ({ data, onUpdatePosition, onUpdateSize }) => {
+const AddField = ({ data, onUpdatePosition, onUpdateSize, onFieldContent }) => {
   Draggable('.field-card', onUpdatePosition);
   Resizable('.field-card-text', onUpdateSize);
 
@@ -16,6 +16,8 @@ const AddField = ({ data, onUpdatePosition, onUpdateSize }) => {
               <textarea
                 type="text"
                 className='field-card-text'
+                value={fieldDesign.value}
+                onChange={(e) => onFieldContent(fieldDesign.uuid, e.target.value)}
                 style={{
                   backgroundColor: fieldDesign.attributes.backgroundColor,
                   color: fieldDesign.attributes.color,
