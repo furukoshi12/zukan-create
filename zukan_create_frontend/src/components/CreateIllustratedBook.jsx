@@ -123,12 +123,6 @@ export const CreateIllustratedBook = () => {
     }
   };
 
-  useEffect(() => {
-    console.log(template.id)
-  },[template])
-
-
-
   return (
     <div className='container'>
       <Sidebar onAddInput={handleAddInput} onAddTemplate={handleAddTemplate} />

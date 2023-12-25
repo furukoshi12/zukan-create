@@ -41,16 +41,17 @@ x(旧twitter)やtimesなどSNSで発信
  * お気に入り一覧
  * 投稿された図鑑一覧
  * 図鑑作成
+ * タグ付け
  * テンプレート選択して更にテキストボックスや画像などを追加可能にする
  * 図鑑詳細
  * 図鑑お気に入り
    
  ### 本リリース
+ * SNS共有
  * 投稿済み図鑑編集
  * 画像加工
  * 画像内の人物にモザイク処理
  * 動物園などの解説文は自動でテキストにして貼り付け
- * タグ付け
  * マルチ検索
  * 見つけた場所をマップ上に表示する（地図の公開、非公開選択）
  * ある生き物の図鑑作成をするとその生き物のアイコンを使用可能にする
@@ -58,8 +59,13 @@ x(旧twitter)やtimesなどSNSで発信
 
 ■ 機能の実装方針予定
 RailsAPIモード
+  sorcery
+  jsonapi-serializer
 React
-interact.js
+  axios
+  react-interactjs
+  react-tag-input
+  react-modal
 Cloud Vision API（画像から日本語抽出）
 Google Maps API
 Google Cloud Vision API
