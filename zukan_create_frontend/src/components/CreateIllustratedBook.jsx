@@ -52,15 +52,31 @@ export const CreateIllustratedBook = () => {
   };
 
   const onFieldContent = (uuid, value) => {
-    console.log(uuid, value)
-    setInputs((prevInputs) => {
-      return prevInputs.map((input) => {
-        if (input.uuid === uuid) {
-          return { ...input, content: value };
-        }
-        return input;
+    if (inputs) {
+      setInputs((prevInputs) => {
+        return prevInputs.map((input) => {
+          if (input.uuid === uuid) {
+            return { ...input, content: value };
+          }
+          return input;
+        });
       });
-    });
+    }
+
+    if (template) {
+      setTemplate((prevTemplate) => {
+        const updateContent = prevTemplate.fieldDesigns.map((fieldDesign) => {
+          if (fieldDesign.uuid === uuid) {
+            return { ...fieldDesign, content: value };
+          }
+          return fieldDesign;
+        });
+        return {
+          ...prevTemplate,
+          fieldDesigns: updateContent
+        }
+      })
+    }
   };
 
   useEffect(() => {
@@ -101,17 +117,34 @@ export const CreateIllustratedBook = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      const templateAttributes = template.fieldDesigns.map(fieldDesign => {
+          const templateContent = fieldDesign.content
+          const templateId = fieldDesign.id
+          return {
+            field_design_id: templateId,
+            content: templateContent,
+          };
+      });
+
+      const inputAttributes = inputs.map(input => {
+          const inputContent = input.content
+          const inputId = input.id
+          return {
+            field_design_id: inputId,
+            content: inputContent
+          };  
+      });
+
+      const contentAttributes = [...templateAttributes, ...inputAttributes];
+
       const generateParams = {
         tags: tagStr,
         illustrated_book: {
-        title: title,
-        template_id: template.id,
-        illustrated_book_field_designs_attributes: inputs.map(input => ({
-          field_design_id: input.id,
-          content: input.content,
-        }))
+          title: title,
+          template_id: template.id,
+          illustrated_book_field_designs_attributes: contentAttributes,
         }
-      };
+      }
 
       const response = await client.post('/user/illustrated_books', generateParams);
       setTitle("");
