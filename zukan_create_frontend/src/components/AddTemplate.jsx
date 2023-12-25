@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Draggable from './interactjs/Draggable';
 import Resizable from './interactjs/Resizable';
 
-function AddTemplate({ templateData, onUpdatePosition, onUpdateSize }) {
+function AddTemplate({ templateData, onUpdatePosition, onUpdateSize, onFieldContent }) {
   Draggable('.field-card', onUpdatePosition);
   Resizable('.field-card-text', onUpdateSize);
   const [inputs, setInputs] = useState([]);
@@ -39,6 +39,8 @@ function AddTemplate({ templateData, onUpdatePosition, onUpdateSize }) {
                 <textarea
                   type="text"
                   className='field-card-text'
+                  value={input.value}
+                  onChange={(e) => onFieldContent(input.uuid, e.target.value)}  
                   style={{
                     backgroundColor: input.backgroundColor,
                     color: input.color,
