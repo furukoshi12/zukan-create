@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Sidebar from './sidebar/Sidebar';
 import client from '../lib/api/client';
@@ -16,6 +16,23 @@ export const CreateIllustratedBook = () => {
   const deleteDoubleArray = [...new Set(tags.map(tag => tag.text))];
   const tagStr = deleteDoubleArray.join(' ');
   const history = useNavigate();
+  const templateRef = useRef(null);
+  const [areaSize, setAreaSize] = useState({ width: 0, height: 0 });
+
+  useEffect(() => {
+    const updateSize = () => {
+      if (templateRef.current) {
+        setAreaSize({
+          width: templateRef.current.offsetWidth,
+          height: templateRef.current.offsetHeight,
+        });
+      }
+    };
+  
+    window.addEventListener('resize', updateSize);
+    updateSize();
+    return () => window.removeEventListener('resize', updateSize);
+  }, []);
 
   const handleAddInput = (inputData) => {
     const uuid = uuidv4();
@@ -97,7 +114,7 @@ export const CreateIllustratedBook = () => {
         ...generateParams,
         ...(template && { templateId: template.id }),
       };
-      const response = await client.post('/user/illustrated_books', params);
+      await client.post('/user/illustrated_books', params);
       setTitle("");
       setTags([]);
       history("/mypage");
@@ -117,8 +134,8 @@ export const CreateIllustratedBook = () => {
             onChange={(e) => handleChange(e)}
             value={title}
           />
-          <div className="draggable-area" style={{backgroundColor: 'white', width: '210mm', height: '297mm', position: 'relative'}}>
-            <AddTemplate templateData={template} onUpdatePosition={updateInputPosition} onUpdateSize={updateInputSize} />
+          <div className="draggable-area" ref={templateRef}>
+            <AddTemplate areaSize={areaSize} templateData={template} onUpdatePosition={updateInputPosition} onUpdateSize={updateInputSize} />
             <AddField data={inputs} onUpdatePosition={updateInputPosition} onUpdateSize={updateInputSize}/>
           </div>
           <ReactTags

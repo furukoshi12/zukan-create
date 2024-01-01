@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Draggable from './interactjs/Draggable';
 import Resizable from './interactjs/Resizable';
 
-function AddTemplate({ templateData, onUpdatePosition, onUpdateSize }) {
+function AddTemplate({ areaSize, templateData, onUpdatePosition, onUpdateSize }) {
   Draggable('.field-card', onUpdatePosition);
   Resizable('.field-card-text', onUpdateSize);
   const [inputs, setInputs] = useState([]);
@@ -34,7 +34,7 @@ function AddTemplate({ templateData, onUpdatePosition, onUpdateSize }) {
       {templateData && (
         <ul>
           {inputs.map(input =>(
-              <li key={input.id} className='field-card' style={{ position: 'absolute', top: input.yPosition, left: input.xPosition}} >
+              <li key={input.id} className='field-card' style={{ position: 'absolute', top: input.yPosition * areaSize.height, left: input.xPosition * areaSize.width }} >
                 <label>{input.label}</label>
                 <textarea
                   type="text"
@@ -47,8 +47,8 @@ function AddTemplate({ templateData, onUpdatePosition, onUpdateSize }) {
                     borderRadius: input.borderRadius,
                     fontFamily: input.fontFamily,
                     fontSize: input.fontSize,
-                    width: input.width,
-                    height: input.height,
+                    width: input.width * areaSize.width,
+                    height: input.height * areaSize.height,
                   }}
                 />
               </li>
