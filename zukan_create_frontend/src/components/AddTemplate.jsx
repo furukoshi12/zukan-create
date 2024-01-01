@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Draggable from './interactjs/Draggable';
 import Resizable from './interactjs/Resizable';
 
-function AddTemplate({ areaSize, templateData, onUpdatePosition, onUpdateSize }) {
+function AddTemplate({ onFieldContent, areaSize, templateData, onUpdatePosition, onUpdateSize }) {
   Draggable('.field-card', onUpdatePosition);
   Resizable('.field-card-text', onUpdateSize);
   const [inputs, setInputs] = useState([]);

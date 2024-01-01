@@ -2,7 +2,7 @@ import React from 'react'
 import Draggable from './interactjs/Draggable';
 import Resizable from './interactjs/Resizable';
 
-const AddField = ({ data, onUpdatePosition, onUpdateSize, onFieldContent }) => {
+const AddField = ({ data, onUpdatePosition, onUpdateSize, onFieldContent  }) => {
   Draggable('.field-card', onUpdatePosition);
   Resizable('.field-card-text', onUpdateSize);
 

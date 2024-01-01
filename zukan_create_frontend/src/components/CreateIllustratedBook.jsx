@@ -185,8 +185,8 @@ export const CreateIllustratedBook = () => {
             value={title}
           />
           <div className="draggable-area" ref={templateRef}>
-            <AddTemplate areaSize={areaSize} templateData={template} onUpdatePosition={updateInputPosition} onUpdateSize={updateInputSize} />
-            <AddField data={inputs} onUpdatePosition={updateInputPosition} onUpdateSize={updateInputSize}/>
+            <AddTemplate areaSize={areaSize} templateData={template} onFieldContent={onFieldContent} onUpdatePosition={updateInputPosition} onUpdateSize={updateInputSize} />
+            <AddField data={inputs} onFieldContent={onFieldContent} onUpdatePosition={updateInputPosition} onUpdateSize={updateInputSize}/>
           </div>
           <ReactTags
             placeholder="Enterでタグ追加"
