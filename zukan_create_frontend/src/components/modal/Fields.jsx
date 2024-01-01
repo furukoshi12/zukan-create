@@ -19,7 +19,7 @@ function Fields({ onAddInput }) {
   };
 
   return (
-    <div className='container' style={{backgroundColor: "white"}}>
+    <div className='container modal'>
       <ul>
         {fieldDesigns.map((fieldDesign, index) => (
           <li key={index} id={index} className='field-card' onClick={() => handleSelectInput(fieldDesign)}>
