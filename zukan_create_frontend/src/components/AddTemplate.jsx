@@ -12,8 +12,17 @@ function AddTemplate({ areaSize, templateData, onUpdatePosition, onUpdateSize })
       const templateFieldDesigns = templateData.templateFieldDesigns
       const fieldDesigns = templateData.fieldDesigns;
 
+      const usedUuids = new Set();
+
       const inputsWithPositionAndStyle = templateFieldDesigns.map((design) => {
-        const fieldDesign = fieldDesigns.find((fd) => fd.id === design.relationships.fieldDesign.data.id);
+        const fieldDesign = fieldDesigns.find((fd) => {
+          return fd.id === design.relationships.fieldDesign.data.id && !usedUuids.has(fd.uuid)
+        });
+
+        if (fieldDesign) {
+          usedUuids.add(fieldDesign.uuid);
+        }
+        
         return {
           ...fieldDesign.attributes,
           templateId: design.relationships.template.data.id,
@@ -21,7 +30,8 @@ function AddTemplate({ areaSize, templateData, onUpdatePosition, onUpdateSize })
           yPosition: design.attributes.yPosition,
           width: design.attributes.width,
           height: design.attributes.height,
-          id: design.id
+          id: design.id,
+          uuid: fieldDesign.uuid
         };
       });
 
@@ -39,6 +49,8 @@ function AddTemplate({ areaSize, templateData, onUpdatePosition, onUpdateSize })
                 <textarea
                   type="text"
                   className='field-card-text'
+                  value={input.value}
+                  onChange={(e) => onFieldContent(input.uuid, e.target.value)}  
                   style={{
                     backgroundColor: input.backgroundColor,
                     color: input.color,

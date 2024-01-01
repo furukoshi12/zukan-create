@@ -38,7 +38,7 @@ export const CreateIllustratedBook = () => {
     const uuid = uuidv4();
     setInputs((prevInputs) => [
       ...prevInputs,
-      { ...inputData, x: 0, y: 0, width: null, height: null, uuid: uuid},
+      { ...inputData, x: 0, y: 0, width: null, height: null, uuid: uuid },
     ]);
   };
 
@@ -68,6 +68,34 @@ export const CreateIllustratedBook = () => {
     });
   };
 
+  const onFieldContent = (uuid, value) => {
+    if (inputs) {
+      setInputs((prevInputs) => {
+        return prevInputs.map((input) => {
+          if (input.uuid === uuid) {
+            return { ...input, content: value };
+          }
+          return input;
+        });
+      });
+    }
+
+    if (template) {
+      setTemplate((prevTemplate) => {
+        const updateContent = prevTemplate.fieldDesigns.map((fieldDesign) => {
+          if (fieldDesign.uuid === uuid) {
+            return { ...fieldDesign, content: value };
+          }
+          return fieldDesign;
+        });
+        return {
+          ...prevTemplate,
+          fieldDesigns: updateContent
+        }
+      })
+    }
+  };
+
   useEffect(() => {
     const fetchTags = async () => {
       try {
@@ -88,10 +116,6 @@ export const CreateIllustratedBook = () => {
     history("/mypage");
   };
 
-  const generateParams = {
-    title: title,
-    tags: tagStr,
-  };
 
   const handleChange = (e) => {
     setTitle(e.target.value);
@@ -110,13 +134,39 @@ export const CreateIllustratedBook = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const params = {
-        ...generateParams,
-        ...(template && { templateId: template.id }),
-      };
-      await client.post('/user/illustrated_books', params);
+      const templateAttributes = template.fieldDesigns.map(fieldDesign => {
+          const templateContent = fieldDesign.content
+          const templateId = fieldDesign.id
+          return {
+            field_design_id: templateId,
+            content: templateContent,
+          };
+      });
+
+      const inputAttributes = inputs.map(input => {
+          const inputContent = input.content
+          const inputId = input.id
+          return {
+            field_design_id: inputId,
+            content: inputContent
+          };  
+      });
+
+      const contentAttributes = [...templateAttributes, ...inputAttributes];
+
+      const generateParams = {
+        tags: tagStr,
+        illustrated_book: {
+          title: title,
+          template_id: template.id,
+          illustrated_book_field_designs_attributes: contentAttributes,
+        }
+      }
+
+      await client.post('/user/illustrated_books', generateParams);
       setTitle("");
       setTags([]);
+      setInputs([]);
       history("/mypage");
     } catch (error) {
       console.log(error);

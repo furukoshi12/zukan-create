@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import client from '../../lib/api/client';
+import { v4 as uuidv4 } from 'uuid';
 
 function Templates({ onAddTemplate }) {
   const [templates, setTemplates] = useState([]);
@@ -23,9 +24,12 @@ function Templates({ onAddTemplate }) {
         const fieldDesignsCount = response.data.data.relationships.fieldDesigns.data;
         const includedFieldDesigns = response.data.included.filter(obj => obj.type === 'field_design');
         const fieldDesignObjects = fieldDesignsCount.map(relationship => {
-          return includedFieldDesigns.find(included => included.id === relationship.id);
+          const fieldDesign = includedFieldDesigns.find(included => included.id === relationship.id);
+          return {
+            ...fieldDesign,
+            uuid: uuidv4(),
+          };
         });
-
         onAddTemplate({
           id: templateId,
           templateFieldDesigns: templateFieldDesignObjects, 
