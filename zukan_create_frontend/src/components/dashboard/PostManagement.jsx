@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import client from '../../lib/api/client';
+import AdminSidebar from './sidebar/AdminSidebar';
 
 export const PostManagement = () => {
   const [illustratedBooks, setIllustratedBooks] = useState([]);
@@ -35,7 +36,8 @@ export const PostManagement = () => {
   ));
 
   return (
-    <div>
+    <div className='container'>
+      <AdminSidebar />
       <table>
         <thead>
           <tr>

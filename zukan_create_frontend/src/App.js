@@ -5,9 +5,10 @@ import MyPage from './components/MyPage';
 import SignUp from './components/SignUp';
 import IllustratedBooks from './components/IllustratedBooks';
 import { CreateIllustratedBook } from './components/CreateIllustratedBook';
-import FieldManagement from './components/dashboard/FieldManagement';
-import TemplateManagement from './components/dashboard/TemplateManagement';
-import AdminController from './components/dashboard/AdminController';
+import { UserManagement } from './components/dashboard//UserManagement';
+import { PostManagement } from './components/dashboard//PostManagement';
+import { TemplateManagement } from './components/dashboard//TemplateManagement';
+import { FieldManagement } from './components/dashboard/FieldManagement';
 
 function App() {
   return (
@@ -19,9 +20,11 @@ function App() {
           <Route path="/mypage" element={<MyPage />} />
           <Route path="/illustratedbooks" element={<IllustratedBooks />} />
           <Route path="/new" element={<CreateIllustratedBook />} />
-          <Route path="/dashboard/fields" element={<FieldManagement />} />
-          <Route path="/dashboard/templates" element={<TemplateManagement />} />
-          <Route path="/dashboard" element={<AdminController />} />
+          <Route path="/dashboard/users" element={<UserManagement />} />
+          <Route path="/dashboard/posts" element={<PostManagement />} />
+          <Route path="dashboard/templates" element={<TemplateManagement />} />
+          <Route path="dashboard/fields" element={<FieldManagement />} />
+          {/*<Route path="dashboard/icons" element={<IconManagement />} />*/}
       </Routes>
     </Router>
   );

@@ -42,7 +42,7 @@ function Templates({ onAddTemplate }) {
     };
 
   return (
-    <div className='container' style={{ backgroundColor: "white" }}>
+    <div className='container modal'>
       <ul>
         {templates.map(template => (
           <li key={template.id} className='template-card' onClick={() => handleSelectTemplate(template)}>
