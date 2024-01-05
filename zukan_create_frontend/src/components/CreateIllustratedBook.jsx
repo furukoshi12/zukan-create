@@ -26,9 +26,10 @@ export const CreateIllustratedBook = () => {
           width: templateRef.current.offsetWidth,
           height: templateRef.current.offsetHeight,
         });
+      } else {
+        setTimeout(updateSize, 10);
       }
     };
-  
     window.addEventListener('resize', updateSize);
     updateSize();
     return () => window.removeEventListener('resize', updateSize);
@@ -88,6 +89,21 @@ export const CreateIllustratedBook = () => {
           }
           return fieldDesign;
         });
+        if (prevTemplate.templateFieldDesigns) {
+          const additionalContent = prevTemplate.templateFieldDesigns.map(templateFieldDesign => {
+            const height = templateFieldDesign.attributes.height
+            const width = templateFieldDesign.attributes.width
+            const xPosition = templateFieldDesign.attributes.xPosition
+            const yPosition = templateFieldDesign.attributes.yPosition
+            return{
+              height: height,
+              width: width,
+              x_position: xPosition,
+              y_position: yPosition,
+            };  
+          });
+              updateContent.push(...additionalContent);
+        }    
         return {
           ...prevTemplate,
           fieldDesigns: updateContent
@@ -134,22 +150,46 @@ export const CreateIllustratedBook = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const templateAttributes = template.fieldDesigns.map(fieldDesign => {
-          const templateContent = fieldDesign.content
-          const templateId = fieldDesign.id
-          return {
-            field_design_id: templateId,
-            content: templateContent,
-          };
-      });
+      const usedTemplateFieldDesignIds = new Set();
+
+      const templateAttributes = template.fieldDesigns.reduce((acc, fieldDesign) => {
+        if (fieldDesign.id != null) {
+          const index = template.templateFieldDesigns.findIndex(tfd =>
+            tfd.relationships.fieldDesign.data.id === fieldDesign.id && !usedTemplateFieldDesignIds.has(tfd.id)
+          );
+        
+          if (index !== -1) {
+            const templateFieldDesign = template.templateFieldDesigns[index];
+            usedTemplateFieldDesignIds.add(templateFieldDesign.id);  
+          
+            acc.push({
+              field_design_id: fieldDesign.id,
+              content: fieldDesign.content,
+              height: templateFieldDesign.attributes.height,
+              width: templateFieldDesign.attributes.width,
+              x_position: templateFieldDesign.attributes.xPosition,
+              y_position: templateFieldDesign.attributes.yPosition,
+            });
+          } else {
+            acc.push({
+              field_design_id: fieldDesign.id,
+              content: fieldDesign.content
+            });
+          }
+        }
+        return acc;
+      }, []);
 
       const inputAttributes = inputs.map(input => {
-          const inputContent = input.content
-          const inputId = input.id
-          return {
-            field_design_id: inputId,
-            content: inputContent
-          };  
+        const attributes = {
+          field_design_id: input.id,
+          content: input.content,
+          height: input.height / areaSize.height,
+          width: input.width / areaSize.width,
+          x_position: input.x / areaSize.width,
+          y_position: input.y / areaSize.height,
+        };
+        return attributes;
       });
 
       const contentAttributes = [...templateAttributes, ...inputAttributes];
