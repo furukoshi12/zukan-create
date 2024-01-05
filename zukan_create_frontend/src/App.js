@@ -1,5 +1,5 @@
 import './App.css';
-import { Link, Route, BrowserRouter as Router, Routes, useLocation } from 'react-router-dom';
+import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 import LoginForm from './components/LoginForm';
 import MyPage from './components/MyPage';
 import SignUp from './components/SignUp';
@@ -9,6 +9,8 @@ import { UserManagement } from './components/dashboard//UserManagement';
 import { PostManagement } from './components/dashboard//PostManagement';
 import { TemplateManagement } from './components/dashboard//TemplateManagement';
 import { FieldManagement } from './components/dashboard/FieldManagement';
+import { ShowIllustratedBook } from './components/ShowIllustratedBook';
+import TopPage from './components/TopPage';
 
 function App() {
   return (
@@ -19,6 +21,7 @@ function App() {
           <Route path="/login" element={<LoginForm />} />
           <Route path="/mypage" element={<MyPage />} />
           <Route path="/illustratedbooks" element={<IllustratedBooks />} />
+          <Route path="/illustrated_books/:id" element={<ShowIllustratedBook />} />
           <Route path="/new" element={<CreateIllustratedBook />} />
           <Route path="/dashboard/users" element={<UserManagement />} />
           <Route path="/dashboard/posts" element={<PostManagement />} />
@@ -27,31 +30,6 @@ function App() {
           {/*<Route path="dashboard/icons" element={<IconManagement />} />*/}
       </Routes>
     </Router>
-  );
-}
-
-function TopPage(){
-  const location = useLocation();
-  const isTopPage = location.pathname === '/';
-
-  return (
-      <div className={`App ${isTopPage ? 'top-page' : ''}` }>
-        <p className='top-logo'>
-          illustrated<br />
-          book create
-        </p>
-
-      <nav>
-        <ul>
-          <li>
-            <Link to="/signup">SignUp</Link>
-          </li>
-          <li>
-            <Link to="/login">Login</Link>
-          </li>
-        </ul>
-      </nav>
-    </div>
   );
 }
 
