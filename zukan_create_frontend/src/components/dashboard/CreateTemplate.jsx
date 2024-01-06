@@ -1,9 +1,10 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import AddField from '../AddField';
 import client from '../../lib/api/client';
 import AdminSidebar from './sidebar/AdminSidebar'
 import { v4 as uuidv4 } from 'uuid';
 import AddTemplate from '../AddTemplate';
+import { useDraggableAreaSize } from '../customHooks/useDraggableAreaSize';
 
 const CreateTemplate = () => {
   const [name, setName] = useState('');
@@ -12,20 +13,10 @@ const CreateTemplate = () => {
   const templateRef = useRef(null);
   const [areaSize, setAreaSize] = useState({ width: 0, height: 0 });
 
-  useEffect(() => {
-    const updateSize = () => {
-      if (templateRef.current) {
-        setAreaSize({
-          width: templateRef.current.offsetWidth,
-          height: templateRef.current.offsetHeight,
-        });
-      }
-    };
-  
-    window.addEventListener('resize', updateSize);
-    updateSize();
-    return () => window.removeEventListener('resize', updateSize);
-  }, []);
+  const onAreaSize = (size) => {
+    setAreaSize(size);
+  }
+  useDraggableAreaSize(templateRef, onAreaSize)
   
   const handleAddTemplate = (templateData) => {
     setTemplate(templateData)
@@ -97,7 +88,7 @@ const CreateTemplate = () => {
             <AddTemplate areaSize={areaSize} templateData={template} onUpdatePosition={updateInputPosition} onUpdateSize={updateInputSize}/>
             <AddField data={templateInputs} onUpdatePosition={updateInputPosition} onUpdateSize={updateInputSize}/>
           </div>
-          <button type='submit'>Create Template</button>
+          <button className="button" type='submit'>Create Template</button>
         </form>
       </div>
     </div>

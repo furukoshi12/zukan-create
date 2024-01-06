@@ -1,6 +1,7 @@
 import { Star, StarBorder } from '@mui/icons-material'
 import React, { useEffect, useState } from 'react'
 import client from '../lib/api/client';
+import { IconButton } from '@mui/material';
 
 function LikeButton({ illustratedBookId }) {
   const [liked, setLiked] = useState(false);
@@ -26,9 +27,9 @@ function LikeButton({ illustratedBookId }) {
     }
 
     return (
-      <button className='like-button' onClick={handleLikeClick}>
+      <IconButton className='like-button' onClick={handleLikeClick}>
         {liked ? <Star /> : <StarBorder />}
-      </button>
+      </IconButton>
     );
   };
 

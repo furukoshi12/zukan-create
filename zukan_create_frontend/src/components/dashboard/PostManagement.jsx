@@ -29,7 +29,7 @@ export const PostManagement = () => {
     <tr key={illustratedBook.id}>
       <td>{illustratedBook.id}</td>
       <td>{illustratedBook.attributes.title}</td>
-      <button type="submit" onClick={() => handleDelete(illustratedBook.id)}>
+      <button className="button" type="submit" onClick={() => handleDelete(illustratedBook.id)}>
         Delete
       </button>
     </tr>

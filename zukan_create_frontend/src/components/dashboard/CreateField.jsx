@@ -51,8 +51,7 @@ const CreateField = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     try {
-      const response = client.post('/field_designs', generateParams);
-      console.log(response)
+      client.post('/field_designs', generateParams);
       setLabel("");
       setBackgroundColor("");
       setColor("");
@@ -137,7 +136,7 @@ const CreateField = () => {
           <option value="23">23</option>
         </select>
 
-        <button type="submit">Create Field</button>
+        <button className="button" type="submit">Create Field</button>
       </form>
     </div>
   );
