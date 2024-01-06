@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import Draggable from './interactjs/Draggable';
-import Resizable from './interactjs/Resizable';
+import useDraggable from './customHooks/useDraggable';
+import useResizable from './customHooks/useResizable';
 
 function AddTemplate({ onFieldContent, areaSize, templateData, onUpdatePosition, onUpdateSize }) {
-  Draggable('.field-card', onUpdatePosition);
-  Resizable('.field-card-text', onUpdateSize);
+  useDraggable('.field-card', onUpdatePosition);
+  useResizable('.field-card-text', onUpdateSize);
   const [inputs, setInputs] = useState([]);
 
   useEffect (() => {
