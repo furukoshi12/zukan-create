@@ -38,7 +38,7 @@ export const Modal = ({ onAddInput, onAddTemplate }) => {
       >
         Field modal
         <Fields onAddInput={onAddInput}/>
-        <button onClick={handleCloseFieldModal}>Close</button>
+        <button className="button" onClick={handleCloseFieldModal}>Close</button>
       </ReactModal>
 
       <li
@@ -53,7 +53,7 @@ export const Modal = ({ onAddInput, onAddTemplate }) => {
       >
         Template modal
         <Templates onAddTemplate={onAddTemplate}/>
-        <button onClick={handleCloseTemplateModal}>Close</button>
+        <button className="button" onClick={handleCloseTemplateModal}>Close</button>
       </ReactModal>
     </div>
   );
