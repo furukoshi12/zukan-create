@@ -6,6 +6,8 @@ import { WithContext as ReactTags } from 'react-tag-input';
 import AddField from './AddField';
 import AddTemplate from './AddTemplate';
 import { v4 as uuidv4 } from 'uuid';
+import { useDraggableAreaSize } from './customHooks/useDraggableAreaSize';
+import { ImageForm, ImagePreviewer } from './ImageForm';
 
 export const CreateIllustratedBook = () => {
   const [title, setTitle] = useState('');
@@ -18,22 +20,14 @@ export const CreateIllustratedBook = () => {
   const history = useNavigate();
   const templateRef = useRef(null);
   const [areaSize, setAreaSize] = useState({ width: 0, height: 0 });
+  const [image, setImage] = useState(null);
+  const [imagePosition, setImagePosition] = useState({ x: 0, y: 0 })
+  const inputRef = useRef(null);
 
-  useEffect(() => {
-    const updateSize = () => {
-      if (templateRef.current) {
-        setAreaSize({
-          width: templateRef.current.offsetWidth,
-          height: templateRef.current.offsetHeight,
-        });
-      } else {
-        setTimeout(updateSize, 10);
-      }
-    };
-    window.addEventListener('resize', updateSize);
-    updateSize();
-    return () => window.removeEventListener('resize', updateSize);
-  }, []);
+  const onAreaSize = (size) => {
+    setAreaSize(size);
+  }
+  useDraggableAreaSize(templateRef, onAreaSize)
 
   const handleAddInput = (inputData) => {
     const uuid = uuidv4();
@@ -152,33 +146,35 @@ export const CreateIllustratedBook = () => {
     try {
       const usedTemplateFieldDesignIds = new Set();
 
-      const templateAttributes = template.fieldDesigns.reduce((acc, fieldDesign) => {
-        if (fieldDesign.id != null) {
-          const index = template.templateFieldDesigns.findIndex(tfd =>
-            tfd.relationships.fieldDesign.data.id === fieldDesign.id && !usedTemplateFieldDesignIds.has(tfd.id)
-          );
-        
-          if (index !== -1) {
-            const templateFieldDesign = template.templateFieldDesigns[index];
-            usedTemplateFieldDesignIds.add(templateFieldDesign.id);  
-          
-            acc.push({
-              field_design_id: fieldDesign.id,
-              content: fieldDesign.content,
-              height: templateFieldDesign.attributes.height,
-              width: templateFieldDesign.attributes.width,
-              x_position: templateFieldDesign.attributes.xPosition,
-              y_position: templateFieldDesign.attributes.yPosition,
-            });
-          } else {
-            acc.push({
-              field_design_id: fieldDesign.id,
-              content: fieldDesign.content
-            });
-          }
-        }
-        return acc;
-      }, []);
+        let templateAttributes = template && template.fieldDesigns
+          ? template.fieldDesigns.reduce((acc, fieldDesign) => {
+            if (fieldDesign.id != null) {
+              const index = template.templateFieldDesigns.findIndex(tfd =>
+                tfd.relationships.fieldDesign.data.id === fieldDesign.id && !usedTemplateFieldDesignIds.has(tfd.id)
+              );
+            
+              if (index !== -1) {
+                const templateFieldDesign = template.templateFieldDesigns[index];
+                usedTemplateFieldDesignIds.add(templateFieldDesign.id);  
+              
+                acc.push({
+                  field_design_id: fieldDesign.id,
+                  content: fieldDesign.content,
+                  height: templateFieldDesign.attributes.height,
+                  width: templateFieldDesign.attributes.width,
+                  x_position: templateFieldDesign.attributes.xPosition,
+                  y_position: templateFieldDesign.attributes.yPosition,
+                });
+              } else {
+                acc.push({
+                  field_design_id: fieldDesign.id,
+                  content: fieldDesign.content
+                });
+              }
+            }
+            return acc;
+          }, [])
+          : [];
 
       const inputAttributes = inputs.map(input => {
         const attributes = {
@@ -193,30 +189,50 @@ export const CreateIllustratedBook = () => {
       });
 
       const contentAttributes = [...templateAttributes, ...inputAttributes];
-
+      
       const generateParams = {
         tags: tagStr,
         illustrated_book: {
           title: title,
-          template_id: template.id,
+          image: image,
+          image_x_position: imagePosition.x / areaSize.width,
+          image_y_position: imagePosition.y / areaSize.height,
+          template_id: template && template.id ? template.id : 1,
           illustrated_book_field_designs_attributes: contentAttributes,
         }
       }
 
-      await client.post('/user/illustrated_books', generateParams);
+      console.log(generateParams)
+      await client.post('/user/illustrated_books', generateParams, {
+        headers: {
+          "Content-Type": "multipart/form-data"
+        }
+      });
       setTitle("");
       setTags([]);
       setInputs([]);
+      setTemplate(null);
       history("/mypage");
     } catch (error) {
       console.log(error);
     }
   };
 
+  const resetPreview = () => {
+    if (inputRef.current) {
+      inputRef.current.value = '';
+    }
+    setImage(null);
+  };
+
+  const updateImagePosition = (uuid, x, y) => {
+    setImagePosition({ x: x, y: y});
+  };
+
   return (
     <div className='container'>
       <Sidebar onAddInput={handleAddInput} onAddTemplate={handleAddTemplate} />
-      <div className='content'>
+      <div className='content-create'>
         <form>
           <input
             type="text"
@@ -224,7 +240,9 @@ export const CreateIllustratedBook = () => {
             onChange={(e) => handleChange(e)}
             value={title}
           />
-          <div className="draggable-area" ref={templateRef}>
+          <ImageForm setImage={setImage} inputRef={inputRef} />
+          <div className="draggable-area" ref={templateRef} >
+            {image && <ImagePreviewer imageFile={image} onReset={resetPreview} imagePosition={imagePosition} inputRef={inputRef} onUpdatePosition={updateImagePosition} />}
             <AddTemplate areaSize={areaSize} templateData={template} onFieldContent={onFieldContent} onUpdatePosition={updateInputPosition} onUpdateSize={updateInputSize} />
             <AddField data={inputs} onFieldContent={onFieldContent} onUpdatePosition={updateInputPosition} onUpdateSize={updateInputSize}/>
           </div>
@@ -235,10 +253,10 @@ export const CreateIllustratedBook = () => {
             handleDelete={(i) => handleDelete(i)}
             handleAddition={(tag) => handleAddition(tag)}
           />
-          <button type="submit" onClick={(e) => handleSubmit(e)}>
+          <button type="submit" className="button" onClick={(e) => handleSubmit(e)}>
             投稿
           </button>
-          <button onClick={onClickHome}>
+          <button className="button" onClick={onClickHome}>
             戻る
           </button>
         </form>
