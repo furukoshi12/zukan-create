@@ -2,29 +2,20 @@ import React, { useEffect, useState, useRef } from 'react'
 import Sidebar from './sidebar/Sidebar'
 import { useParams } from 'react-router-dom'
 import client from '../lib/api/client';
+import { useDraggableAreaSize } from './customHooks/useDraggableAreaSize';
+import { Box } from '@mui/material';
 
 export const ShowIllustratedBook = () => {
   let { id } = useParams();
   const [illustratedBook, setIllustratedBook] = useState(null);
   const [usedFileds, setUsedFields] = useState([]);
   const templateRef = useRef(null);
-  const [areaSize, setAreaSize] = useState({ width: null, height: null });
+  const [areaSize, setAreaSize] = useState({ width: 0, height: 0 });
 
-  useEffect(() => {
-    const updateSize = () => {
-      if (templateRef.current) {
-        setAreaSize({
-          width: templateRef.current.offsetWidth,
-          height: templateRef.current.offsetHeight,
-        });
-      } else {
-        setTimeout(updateSize, 10);
-      }
-    };
-    window.addEventListener('resize', updateSize);
-    updateSize();
-    return () => window.removeEventListener('resize', updateSize);
-  }, []);
+  const onAreaSize = (size) => {
+    setAreaSize(size);
+  }
+  useDraggableAreaSize(templateRef, onAreaSize)
 
   useEffect(() => {
     client.get(`/illustrated_books/${id}`)
@@ -75,6 +66,27 @@ export const ShowIllustratedBook = () => {
       <Sidebar />
       <div className='content'>
         <div className="draggable-area" ref={templateRef}>
+        {illustratedBook.image.url &&
+          <Box
+            style={{
+              position: 'absolute',
+              top: illustratedBook.imageYPosition * areaSize.height,
+              left: illustratedBook.imageXPosition * areaSize.width,  
+              maxHeight: '40%',
+              maxWidth: '40%',
+            }}
+          >
+            <img 
+              src={illustratedBook.image.url} 
+              alt='img'
+              style={{
+                width: '100%',
+                height: '100%',
+                objectFit: 'contain',
+              }}
+            />
+          </Box>
+        }
           {showPost && (
             <ul>
               {showPost.map((object, index) => (
