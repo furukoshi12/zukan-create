@@ -47,7 +47,7 @@ function SignUp(){
           <input type='password' placeholder='Password' value={password} onChange={(e) => setPassword(e.target.value)} />
           <p>PasswordConfirmation</p>
           <input type='password' placeholder='PasswordConfirmation' value={password_confirmation} onChange={(e) => setPasswordConfirmation(e.target.value)} />
-          <button onClick={handleSignUp}>SignUp</button>
+          <button className="button" onClick={handleSignUp}>SignUp</button>
         </div>
       </div>
     </div>

@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import interact from 'interactjs';
 
-const Draggable = (selector, onUpdatePosition) => {
+const useDraggable = (selector, onUpdatePosition) => {
   useEffect(() => {
     const draggableInstance = interact(selector)
       .draggable({
@@ -36,13 +36,13 @@ const Draggable = (selector, onUpdatePosition) => {
           target.style.top = '0px';
         }
         onUpdatePosition(uuid, x, y);
+        console.log(x, y)
       };
       
-
     return () => {
       draggableInstance.unset();
     };
   }, [onUpdatePosition, selector]);
 };
 
-export default Draggable;
+export default useDraggable;

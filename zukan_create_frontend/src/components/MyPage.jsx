@@ -49,10 +49,8 @@ function MyPage() {
             Likes
           </button>
         </div>
-        <div className='tab-content'>
           {activeTab === 'illustrated_books' && <MyIllustratedBooks illustratedBooks={illustratedBooks} />}
           {activeTab === 'likes' && <Likes likes={likes} />}
-        </div>
       </div>
     </div>
   );

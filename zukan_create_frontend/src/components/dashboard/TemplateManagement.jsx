@@ -31,7 +31,7 @@ export const TemplateManagement = () => {
     <tr key={template.id}>
       <td>{template.id}</td>
       <td>{template.attributes.name}</td>
-      <button type="submit" onClick={() => handleDelete(template.id)}>
+      <button className="button" type="submit" onClick={() => handleDelete(template.id)}>
         Delete
       </button>
     </tr>

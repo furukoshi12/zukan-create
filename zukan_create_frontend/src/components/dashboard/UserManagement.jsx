@@ -32,7 +32,7 @@ export const UserManagement = () => {
       <td>{user.name}</td>
       <td>{user.email}</td>
       <td>{user.createdAt}</td>
-      <button type="submit" onClick={() => handleDelete(user.id)}>
+      <button className="button" type="submit" onClick={() => handleDelete(user.id)}>
         Delete
       </button>
     </tr>

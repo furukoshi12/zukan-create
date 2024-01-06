@@ -38,7 +38,7 @@ export const FieldManagement = () => {
       <td>{field.attributes.borderRadius}</td>
       <td>{field.attributes.fontFamily}</td>
       <td>{field.attributes.fontSize}</td>
-      <button type="submit" onClick={() => handleDelete(field.id)}>
+      <button className="button" type="submit" onClick={() => handleDelete(field.id)}>
         Delete
       </button>
     </tr>

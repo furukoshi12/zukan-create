@@ -42,7 +42,7 @@ function LoginForm() {
           <input type='email' placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
           <p>Password</p>
           <input type='password' placeholder='Password' value={password} onChange={(e) => setPassword(e.target.value)} />
-          <button onClick={handleLogin}>Login</button>
+          <button className="button" onClick={handleLogin}>Login</button>
         </div>
       </div>
     </div>

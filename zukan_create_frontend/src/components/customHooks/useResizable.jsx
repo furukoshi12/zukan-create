@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import interact from 'interactjs';
 
-const Resizable = (selector, onUpdateSize) => {
+const useResizable = (selector, onUpdateSize) => {
   useEffect(() => {
     let newSize = { width: 0, height: 0 };
 
@@ -35,4 +35,4 @@ const Resizable = (selector, onUpdateSize) => {
 }, [onUpdateSize, selector]);
 };
 
-export default Resizable
+export default useResizable

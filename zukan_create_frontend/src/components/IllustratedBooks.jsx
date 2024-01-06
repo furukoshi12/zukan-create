@@ -3,6 +3,9 @@ import Sidebar from './sidebar/Sidebar'
 import client from '../lib/api/client'
 import LikeButton from './LikeButton';
 import { useNavigate } from 'react-router-dom';
+import { Box } from '@mui/material';
+import defaultImagePath from '../images/default.webp'
+
 
 function IllustratedBooks(){
   const [illustratedBooks, setIllustratedBooks] = useState([]);
@@ -25,11 +28,14 @@ function IllustratedBooks(){
   return (
     <div className='container'>
     <Sidebar />
-      <div className='card-container'>
-        <ul>
+      <div className='content'>
+        <ul className='grid'>
           {illustratedBooks.map(illustratedBook => (
             <li key={illustratedBook.id} className='illustrated-book-card'>
-              <p className='title' onClick={() => handleSelectIllustratedBook(illustratedBook)}>{illustratedBook.attributes.title}</p>
+              <Box>
+                <img src={illustratedBook.attributes.image.url || defaultImagePath} alt='Preview' style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
+                <p className='title' onClick={() => handleSelectIllustratedBook(illustratedBook)}>{illustratedBook.attributes.title}</p>
+              </Box>
               <p className='tag'>{illustratedBook.attributes.tags}</p>
               <LikeButton illustratedBookId={illustratedBook.id}/>
             </li>

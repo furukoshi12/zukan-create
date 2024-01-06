@@ -2,6 +2,8 @@ import React from 'react';
 import LikeButton from './LikeButton';
 import client from '../lib/api/client';
 import { Delete } from '@mui/icons-material';
+import { Box, IconButton } from '@mui/material';
+import defaultImagePath from '../images/default.webp'
 
 function MyIllustratedBooks({ illustratedBooks }) {
   const handleDelete = (illustratedBookId) => {
@@ -15,20 +17,27 @@ function MyIllustratedBooks({ illustratedBooks }) {
   }
   
   return (
-    <div className='card-container'>
-      <ul>
+    <>
+      <ul className='grid'>
         {illustratedBooks.map(illustratedBook => (
           <li key={illustratedBook.id} className='illustrated-book-card'>
-            <p className='title'>{illustratedBook.attributes.title}</p>
+            <Box>
+              <img src={illustratedBook.attributes.image.url || defaultImagePath} alt='Preview' style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
+              <p className='title'>{illustratedBook.attributes.title}</p>
+            </Box>
+
             <p className='tag'>{illustratedBook.attributes.tags}</p>
+
+            <div className='card-actions'>
             <LikeButton illustratedBookId={illustratedBook.id}/>
-            <button type="submit" onClick={() => handleDelete(illustratedBook.id)}>
+            <IconButton type="submit" onClick={() => handleDelete(illustratedBook.id)}>
               <Delete />
-            </button>
+            </IconButton>
+            </div>
           </li>
         ))}
       </ul>
-    </div>
+    </>
   );
 }
 
