@@ -9,17 +9,17 @@ import {
 
 export const SidebarData = [
   {
-    title: "MyPage",
+    title: "マイページ",
     icon: <Home />,
     link: "/mypage",
   },
   {
-    title: "Everyone's IllustratedBooks",
+    title: "みんなの図鑑",
     icon: <ListIcon />,
     link: "/illustratedbooks",
   },
   {
-    title: "Create New IllustratedBook",
+    title: "図鑑作成",
     icon: <CreateIcon />,
     link: "/new",
   },
@@ -27,12 +27,12 @@ export const SidebarData = [
 
 export const SidebarFooterData = [
   {
-    title: "Regulation",
+    title: "利用規約",
     icon: <GradingIcon />,
     link: "/regulation",
   },
   {
-    title: "Mail",
+    title: "お問い合わせ",
     icon: <MailIcon />,
     link: "/mail",
   }
