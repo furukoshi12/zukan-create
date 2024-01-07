@@ -39,11 +39,17 @@ export const ImagePreviewer = ({ imageFile, onReset, inputRef, imagePosition, on
             left: imagePosition.x,
             maxHeight: '40%',
             maxWidth: '40%',
-            width: 'auto',
-            height: 'auto',
           }}
         >
-          <img src={preview} alt='Preview' />
+          <img
+            src={preview} 
+            alt='Preview'
+            style={{
+              width: '100%',
+              height: '100%',
+              objectFit: 'contain',
+            }}
+          />
           <IconButton color="inherit" onClick={handleReset}>
             <CancelIcon />
           </IconButton>
