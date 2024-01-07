@@ -10,7 +10,6 @@ import { SearchComponent } from './SearchComponent';
 
 function IllustratedBooks(){
   const [illustratedBooks, setIllustratedBooks] = useState([]);
-  const [tag, setTag] = useState([]);
   const [flashMessage, setFlashMessage] = useState('');
   const history = useNavigate();
 

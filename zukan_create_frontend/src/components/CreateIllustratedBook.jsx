@@ -63,6 +63,57 @@ export const CreateIllustratedBook = () => {
     });
   };
 
+
+  const updateTemplatePosition = (uuid, x, y) => {
+    setTemplate((prevTemplate) => {
+      const updatedTemplateFieldDesigns = prevTemplate.templateFieldDesigns.map((templateFieldDesign) => {
+        const fieldDesign = prevTemplate.fieldDesigns.find((fieldDesign) => fieldDesign.uuid === uuid);
+        if (fieldDesign && templateFieldDesign.relationships.fieldDesign.data.id === fieldDesign.id) {
+          return {
+            ...templateFieldDesign,
+            attributes: {
+              ...templateFieldDesign.attributes,
+              xPosition: x / areaSize.width,
+              yPosition: y /areaSize.height
+            }
+          };
+        }
+        return templateFieldDesign;
+      });
+  
+      return {
+        ...prevTemplate,
+        templateFieldDesigns: updatedTemplateFieldDesigns
+      };
+    });
+  };
+
+  const updateTemplateSize = (uuid, width, height) => {
+    setTemplate((prevTemplate) => {
+      const updatedTemplateFieldDesigns = prevTemplate.templateFieldDesigns.map((templateFieldDesign) => {
+        const fieldDesign = prevTemplate.fieldDesigns.find((fieldDesign) => fieldDesign.uuid === uuid);
+        if (fieldDesign && templateFieldDesign.relationships.fieldDesign.data.id === fieldDesign.id) {
+          return {
+            ...templateFieldDesign,
+            attributes: {
+              ...templateFieldDesign.attributes,
+              width: width / areaSize.width,
+              height: height /areaSize.height
+            }
+          };
+        }
+        return templateFieldDesign;
+      });
+  
+      return {
+        ...prevTemplate,
+        templateFieldDesigns: updatedTemplateFieldDesigns
+      };
+    });
+  };
+
+
+
   const onFieldContent = (uuid, value) => {
     if (inputs) {
       setInputs((prevInputs) => {
@@ -202,7 +253,6 @@ export const CreateIllustratedBook = () => {
         }
       }
 
-      console.log(generateParams)
       await client.post('/user/illustrated_books', generateParams, {
         headers: {
           "Content-Type": "multipart/form-data"
@@ -212,6 +262,8 @@ export const CreateIllustratedBook = () => {
       setTags([]);
       setInputs([]);
       setTemplate(null);
+      setImage(null);
+      setImagePosition({ x: 0, y: 0 })
       history("/mypage");
     } catch (error) {
       console.log(error);
@@ -226,7 +278,9 @@ export const CreateIllustratedBook = () => {
   };
 
   const updateImagePosition = (uuid, x, y) => {
-    setImagePosition({ x: x, y: y});
+    if (uuid === null) {
+      setImagePosition({ x: x, y: y });
+    }
   };
 
   return (
@@ -243,7 +297,7 @@ export const CreateIllustratedBook = () => {
           <ImageForm setImage={setImage} inputRef={inputRef} />
           <div className="draggable-area" ref={templateRef} >
             {image && <ImagePreviewer imageFile={image} onReset={resetPreview} imagePosition={imagePosition} inputRef={inputRef} onUpdatePosition={updateImagePosition} />}
-            <AddTemplate areaSize={areaSize} templateData={template} onFieldContent={onFieldContent} onUpdatePosition={updateInputPosition} onUpdateSize={updateInputSize} />
+            <AddTemplate areaSize={areaSize} templateData={template} onFieldContent={onFieldContent} onUpdatePosition={updateTemplatePosition} onUpdateSize={updateTemplateSize} />
             <AddField data={inputs} onFieldContent={onFieldContent} onUpdatePosition={updateInputPosition} onUpdateSize={updateInputSize}/>
           </div>
           <ReactTags

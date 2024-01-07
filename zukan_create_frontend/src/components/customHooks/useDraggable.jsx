@@ -36,7 +36,6 @@ const useDraggable = (selector, onUpdatePosition) => {
           target.style.top = '0px';
         }
         onUpdatePosition(uuid, x, y);
-        console.log(x, y)
       };
       
     return () => {

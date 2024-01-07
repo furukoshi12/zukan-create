@@ -64,7 +64,7 @@ export const ShowIllustratedBook = () => {
   return (
     <div className='container'>
       <Sidebar />
-      <div className='content'>
+      <div className='content-create'>
         <div className="draggable-area" ref={templateRef}>
         {illustratedBook.image.url &&
           <Box

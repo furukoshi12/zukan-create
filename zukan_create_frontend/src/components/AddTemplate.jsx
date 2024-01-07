@@ -44,7 +44,7 @@ function AddTemplate({ onFieldContent, areaSize, templateData, onUpdatePosition,
       {templateData && (
         <ul>
           {inputs.map(input =>(
-              <li key={input.id} className='field-card' style={{ position: 'absolute', top: input.yPosition * areaSize.height, left: input.xPosition * areaSize.width }} >
+              <li key={input.id} data-id={input.uuid} className='field-card' style={{ position: 'absolute', top: input.yPosition * areaSize.height, left: input.xPosition * areaSize.width }} >
                 <label>{input.label}</label>
                 <textarea
                   type="text"
