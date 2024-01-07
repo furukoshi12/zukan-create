@@ -36,9 +36,9 @@ function SignUp(){
     <div className='container'>
       <Sidebar />
       <div className='content'>
+        <h1>SignUp</h1>
         <div className='login-form'>
         {error && <div>{error}</div>}
-          <h1>SignUp</h1>
           <p>Name</p>
           <input type='text' placeholder="Name" value={name} onChange={(e) => setName(e.target.value)} />
           <p>Email</p>

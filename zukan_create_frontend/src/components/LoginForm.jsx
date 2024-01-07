@@ -36,8 +36,8 @@ function LoginForm() {
     <div className='container'>
       <Sidebar />
       <div className='content'>
+        <h1>Login</h1>
         <div className='login-form'>
-          <h1>Login</h1>
           <p>Email</p>
           <input type='email' placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
           <p>Password</p>
