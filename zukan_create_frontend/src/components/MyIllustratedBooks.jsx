@@ -25,9 +25,11 @@ function MyIllustratedBooks({ illustratedBooks }) {
               <img src={illustratedBook.attributes.image.url || defaultImagePath} alt='Preview' style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
               <p className='title'>{illustratedBook.attributes.title}</p>
             </Box>
-
-            <p className='tag'>{illustratedBook.attributes.tags}</p>
-
+            <div className="tags">
+                {illustratedBook.attributes.tags.map((tag, index) => (
+                  <p key={index} className='tag'>#{tag}</p>
+                ))}
+              </div>
             <div className='card-actions'>
             <LikeButton illustratedBookId={illustratedBook.id}/>
             <IconButton type="submit" onClick={() => handleDelete(illustratedBook.id)}>
