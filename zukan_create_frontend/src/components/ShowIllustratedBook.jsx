@@ -66,31 +66,31 @@ export const ShowIllustratedBook = () => {
       <Sidebar />
       <div className='content-create'>
         <div className="draggable-area" ref={templateRef}>
-        {illustratedBook.image.url &&
-          <Box
-            style={{
-              position: 'absolute',
-              top: illustratedBook.imageYPosition * areaSize.height,
-              left: illustratedBook.imageXPosition * areaSize.width,  
-              maxHeight: '40%',
-              maxWidth: '40%',
-            }}
-          >
-            <img 
-              src={illustratedBook.image.url} 
-              alt='img'
+          {illustratedBook.image.url &&
+            <Box
               style={{
-                width: '100%',
-                height: '100%',
-                objectFit: 'contain',
+                position: 'absolute',
+                top: illustratedBook.imageYPosition * areaSize.height,
+                left: illustratedBook.imageXPosition * areaSize.width,  
+                maxHeight: '40%',
+                maxWidth: '40%',
               }}
-            />
-          </Box>
-        }
+            >
+              <img 
+                src={illustratedBook.image.url} 
+                alt='img'
+                style={{
+                  width: '100%',
+                  height: '100%',
+                  objectFit: 'contain',
+                }}
+              />
+            </Box>
+          }
           {showPost && (
             <ul>
               {showPost.map((object, index) => (
-                <li key={index} style={{ position: 'absolute', top: object.illustratedBook.yPosition * areaSize.height, left: object.illustratedBook.xPosition * areaSize.width }} >
+                <li key={index} className='field-card' style={{ position: 'absolute', top: object.illustratedBook.yPosition * areaSize.height, left: object.illustratedBook.xPosition * areaSize.width }} >
                   <label>{object.fieldDesign.attributes.label}</label>
                   <textarea
                     type="text"
