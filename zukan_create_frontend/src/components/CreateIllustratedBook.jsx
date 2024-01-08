@@ -33,7 +33,7 @@ export const CreateIllustratedBook = () => {
     const uuid = uuidv4();
     setInputs((prevInputs) => [
       ...prevInputs,
-      { ...inputData, x: 0, y: 0, width: null, height: null, uuid: uuid },
+      { ...inputData, x: 0, y: 0, width: 162, height: 42, uuid: uuid },
     ]);
   };
 
@@ -66,53 +66,59 @@ export const CreateIllustratedBook = () => {
 
   const updateTemplatePosition = (uuid, x, y) => {
     setTemplate((prevTemplate) => {
-      const updatedTemplateFieldDesigns = prevTemplate.templateFieldDesigns.map((templateFieldDesign) => {
-        const fieldDesign = prevTemplate.fieldDesigns.find((fieldDesign) => fieldDesign.uuid === uuid);
-        if (fieldDesign && templateFieldDesign.relationships.fieldDesign.data.id === fieldDesign.id) {
-          return {
-            ...templateFieldDesign,
-            attributes: {
-              ...templateFieldDesign.attributes,
-              xPosition: x / areaSize.width,
-              yPosition: y /areaSize.height
-            }
-          };
-        }
-        return templateFieldDesign;
-      });
+      if (prevTemplate && prevTemplate.templateFieldDesigns !== null) {
+        const updatedTemplateFieldDesigns = prevTemplate.templateFieldDesigns.map((templateFieldDesign) => {
+          const fieldDesign = prevTemplate.fieldDesigns.find((fieldDesign) => fieldDesign.uuid === uuid);
+          if (fieldDesign && templateFieldDesign.relationships.fieldDesign.data.id === fieldDesign.id) {
+            return {
+              ...templateFieldDesign,
+              attributes: {
+                ...templateFieldDesign.attributes,
+                xPosition: x / areaSize.width,
+                yPosition: y / areaSize.height
+              }
+            };
+          }
+          return templateFieldDesign;
+        });
   
-      return {
-        ...prevTemplate,
-        templateFieldDesigns: updatedTemplateFieldDesigns
-      };
+        return {
+          ...prevTemplate,
+          templateFieldDesigns: updatedTemplateFieldDesigns
+        };
+      } else {
+        return prevTemplate;
+      }
     });
   };
-
+  
   const updateTemplateSize = (uuid, width, height) => {
     setTemplate((prevTemplate) => {
-      const updatedTemplateFieldDesigns = prevTemplate.templateFieldDesigns.map((templateFieldDesign) => {
-        const fieldDesign = prevTemplate.fieldDesigns.find((fieldDesign) => fieldDesign.uuid === uuid);
-        if (fieldDesign && templateFieldDesign.relationships.fieldDesign.data.id === fieldDesign.id) {
-          return {
-            ...templateFieldDesign,
-            attributes: {
-              ...templateFieldDesign.attributes,
-              width: width / areaSize.width,
-              height: height /areaSize.height
-            }
-          };
-        }
-        return templateFieldDesign;
-      });
+      if (prevTemplate && prevTemplate.templateFieldDesigns !== null) {
+        const updatedTemplateFieldDesigns = prevTemplate.templateFieldDesigns.map((templateFieldDesign) => {
+          const fieldDesign = prevTemplate.fieldDesigns.find((fieldDesign) => fieldDesign.uuid === uuid);
+          if (fieldDesign && templateFieldDesign.relationships.fieldDesign.data.id === fieldDesign.id) {
+            return {
+              ...templateFieldDesign,
+              attributes: {
+                ...templateFieldDesign.attributes,
+                width: width / areaSize.width,
+                height: height / areaSize.height
+              }
+            };
+          }
+          return templateFieldDesign;
+        });
   
-      return {
-        ...prevTemplate,
-        templateFieldDesigns: updatedTemplateFieldDesigns
-      };
+        return {
+          ...prevTemplate,
+          templateFieldDesigns: updatedTemplateFieldDesigns
+        };
+      } else {
+        return prevTemplate;
+      }
     });
   };
-
-
 
   const onFieldContent = (uuid, value) => {
     if (inputs) {
@@ -176,7 +182,6 @@ export const CreateIllustratedBook = () => {
   const onClickHome = () => {
     history("/mypage");
   };
-
 
   const handleChange = (e) => {
     setTitle(e.target.value);

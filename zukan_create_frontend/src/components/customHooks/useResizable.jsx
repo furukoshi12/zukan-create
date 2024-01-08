@@ -32,7 +32,7 @@ const useResizable = (selector, onUpdateSize) => {
   return () => {
     resizableInstance.unset();
   };
-}, [onUpdateSize, selector]);
+}, [selector, onUpdateSize]);
 };
 
 export default useResizable

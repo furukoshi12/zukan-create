@@ -11,6 +11,7 @@ import { TemplateManagement } from './components/dashboard//TemplateManagement';
 import { FieldManagement } from './components/dashboard/FieldManagement';
 import { ShowIllustratedBook } from './components/ShowIllustratedBook';
 import TopPage from './components/TopPage';
+import { UpdateIllustratedBook } from './components/UpdateIllustratedBook';
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
           <Route path="/illustratedbooks" element={<IllustratedBooks />} />
           <Route path="/illustrated_books/:id" element={<ShowIllustratedBook />} />
           <Route path="/new" element={<CreateIllustratedBook />} />
+          <Route path="/user/illustrated_books/:id" element={<UpdateIllustratedBook />} />
           <Route path="/dashboard/users" element={<UserManagement />} />
           <Route path="/dashboard/posts" element={<PostManagement />} />
           <Route path="dashboard/templates" element={<TemplateManagement />} />

@@ -1,11 +1,15 @@
 import React from 'react';
 import LikeButton from './LikeButton';
 import client from '../lib/api/client';
-import { Delete } from '@mui/icons-material';
+import { Delete, Edit } from '@mui/icons-material';
 import { Box, IconButton } from '@mui/material';
 import defaultImagePath from '../images/default.webp'
+import { useNavigate } from 'react-router-dom';
+
 
 function MyIllustratedBooks({ illustratedBooks }) {
+  const history = useNavigate();
+
   const handleDelete = (illustratedBookId) => {
     client.delete(`/user/illustrated_books/${illustratedBookId}`)
     .then(() =>{
@@ -15,6 +19,14 @@ function MyIllustratedBooks({ illustratedBooks }) {
       console.error("削除中にエラーが発生しました: ", error);
     });
   }
+
+  const handleSelectIllustratedBook = (illustratedBook) => {
+    history(`/illustrated_books/${illustratedBook.id}`);
+  };
+
+  const changeUpdate = (illustratedBook) => {
+    history(`/user/illustrated_books/${illustratedBook.id}`);
+  }
   
   return (
     <>
@@ -23,7 +35,7 @@ function MyIllustratedBooks({ illustratedBooks }) {
           <li key={illustratedBook.id} className='illustrated-book-card'>
             <Box>
               <img src={illustratedBook.attributes.image.url || defaultImagePath} alt='Preview' style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
-              <p className='title'>{illustratedBook.attributes.title}</p>
+              <p className='title' onClick={() => handleSelectIllustratedBook(illustratedBook)}>{illustratedBook.attributes.title}</p>
             </Box>
             <div className="tags">
                 {illustratedBook.attributes.tags.map((tag, index) => (
@@ -32,6 +44,9 @@ function MyIllustratedBooks({ illustratedBooks }) {
               </div>
             <div className='card-actions'>
             <LikeButton illustratedBookId={illustratedBook.id}/>
+            <IconButton type="submit" onClick={() => changeUpdate(illustratedBook)}>
+              <Edit />
+            </IconButton>
             <IconButton type="submit" onClick={() => handleDelete(illustratedBook.id)}>
               <Delete />
             </IconButton>
