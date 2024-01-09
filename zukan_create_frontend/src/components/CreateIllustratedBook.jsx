@@ -52,6 +52,13 @@ export const CreateIllustratedBook = () => {
     });
   };
 
+  const removeItem = (uuid) => {
+    setInputs((prevInputs) => {
+      const updateInputs = prevInputs.filter((input) => input.uuid !== uuid);
+      return updateInputs;
+    });
+  };
+
   const updateInputSize = (uuid, width, height) => {
     setInputs((prevInputs) => {
       return prevInputs.map((input) => {
@@ -288,6 +295,7 @@ export const CreateIllustratedBook = () => {
     }
   };
 
+
   return (
     <div className='container'>
       <Sidebar onAddInput={handleAddInput} onAddTemplate={handleAddTemplate} />
@@ -303,7 +311,7 @@ export const CreateIllustratedBook = () => {
           <div className="draggable-area" ref={templateRef} >
             {image && <ImagePreviewer imageFile={image} onReset={resetPreview} imagePosition={imagePosition} inputRef={inputRef} onUpdatePosition={updateImagePosition} />}
             <AddTemplate areaSize={areaSize} templateData={template} onFieldContent={onFieldContent} onUpdatePosition={updateTemplatePosition} onUpdateSize={updateTemplateSize} />
-            <AddField data={inputs} onFieldContent={onFieldContent} onUpdatePosition={updateInputPosition} onUpdateSize={updateInputSize}/>
+            <AddField data={inputs} onRemoveItem={removeItem} onFieldContent={onFieldContent} onUpdatePosition={updateInputPosition} onUpdateSize={updateInputSize}/>
           </div>
           <ReactTags
             placeholder="Enterでタグ追加"
