@@ -2,9 +2,13 @@ import React from 'react'
 import useDraggable from './customHooks/useDraggable';
 import useResizable from './customHooks/useResizable';
 
-const AddField = ({ data, onUpdatePosition, onUpdateSize, onFieldContent  }) => {
-  useDraggable('.field-card', onUpdatePosition);
+const AddField = ({ data, onUpdatePosition, onUpdateSize, onFieldContent, onRemoveItem }) => {
+  useDraggable('.field-card', onUpdatePosition );
   useResizable('.field-card-text', onUpdateSize);
+
+  const handleReset = (uuid) => {
+    onRemoveItem(uuid);
+  };
 
   return (
     <>
@@ -23,13 +27,14 @@ const AddField = ({ data, onUpdatePosition, onUpdateSize, onFieldContent  }) => 
                   color: fieldDesign.attributes.color,
                   borderColor: fieldDesign.attributes.borderColor,
                   borderStyle: fieldDesign.attributes.borderStyle,
-                  borderRadius: fieldDesign.attributes.borderRadius,
+                  borderRadius: parseInt(fieldDesign.attributes.borderRadius, 10),
                   fontFamily: fieldDesign.attributes.fontFamily,
-                  fontSize: fieldDesign.attributes.fontSize,
+                  fontSize: parseInt(fieldDesign.attributes.fontSize, 10),
                   width: fieldDesign.width,
                   height: fieldDesign.height,
                 }}
               />
+              <button type="button" onClick={() => handleReset(fieldDesign.uuid)}>x</button>
             </li>
           ))}
         </ul>

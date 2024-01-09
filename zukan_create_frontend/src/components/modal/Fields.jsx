@@ -19,27 +19,28 @@ function Fields({ onAddInput }) {
   };
 
   return (
-    <div className='container modal'>
+    <>
       <ul>
         {fieldDesigns.map((fieldDesign, index) => (
           <li key={index} id={index} className='field-card' onClick={() => handleSelectInput(fieldDesign)}>
             <label>{fieldDesign.attributes.label}</label>
             <textarea
               type="text"
+              placeholder='sample'
               style={{
                 backgroundColor: fieldDesign.attributes.backgroundColor,
                 color: fieldDesign.attributes.color,
                 borderColor: fieldDesign.attributes.borderColor,
                 borderStyle: fieldDesign.attributes.borderStyle,
-                borderRadius: fieldDesign.attributes.borderRadius,
+                borderRadius: parseInt(fieldDesign.attributes.borderRadius, 10),
                 fontFamily: fieldDesign.attributes.fontFamily,
-                fontSize: fieldDesign.attributes.fontSize
+                fontSize: parseInt(fieldDesign.attributes.fontSize, 10),
               }}
             />
           </li>
         ))}
       </ul>
-    </div>
+    </>
   );
 }
 

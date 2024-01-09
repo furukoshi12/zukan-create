@@ -39,6 +39,13 @@ function AddTemplate({ onFieldContent, areaSize, templateData, onUpdatePosition,
     }
   }, [templateData])
 
+  const handleReset = (uuid) => {
+    setInputs((prevInputs) => {
+      const updateInputs = prevInputs.filter((input) => input.uuid !== uuid);
+      return updateInputs;
+    });
+  };
+
   return (
     <>
       {templateData && (
@@ -56,13 +63,14 @@ function AddTemplate({ onFieldContent, areaSize, templateData, onUpdatePosition,
                     color: input.color,
                     borderColor: input.borderColor,
                     borderStyle: input.borderStyle,
-                    borderRadius: input.borderRadius,
+                    borderRadius: parseInt(input.borderRadius, 10),
                     fontFamily: input.fontFamily,
-                    fontSize: input.fontSize,
+                    fontSize: parseInt(input.fontSize, 10),
                     width: input.width * areaSize.width,
                     height: input.height * areaSize.height,
                   }}
                 />
+              <button type="button" onClick={() => handleReset(input.uuid)}>x</button>
               </li>
             ))}
         </ul>

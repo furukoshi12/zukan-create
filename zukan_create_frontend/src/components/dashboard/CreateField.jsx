@@ -81,25 +81,25 @@ const CreateField = () => {
         <label htmlFor="title">background_color:</label>
         <select id="backgroundColor" value={backgroundColor} onChange={handleBackgroundColorChange}>
           <option value=""></option>
-          <option value="background_#FECF8F">黄色</option>
-          <option value="background_#94BCB7">青</option>
-          <option value="background_#8AA3B9">ブルーグレー</option>
+          <option value="background_#FADCB2">赤</option>
+          <option value="background_#B2E7F9">青</option>
+          <option value="background_#DDF4BF">緑</option>
         </select>
 
         <label htmlFor="title">color:</label>
         <select id="color" value={color} onChange={handleColorChange}>
           <option value=""></option>
-          <option value="#F69679">オレンジ</option>
-          <option value="#9FCA99">緑</option>
-          <option value="#8490C8">紫</option>
+          <option value="#F55C20">赤</option>
+          <option value="#338527">緑</option>
+          <option value="#3349AF">青</option>
         </select>
 
         <label htmlFor="title">border_color:</label>
         <select id="borderColor" value={borderColor} onChange={handleBorderColorChange}>
           <option value=""></option>
-          <option value="#FECF8F">黄色</option>
-          <option value="#94BCB7">青</option>
-          <option value="#8AA3B9">ブルーグレー</option>
+          <option value="#FADCB2">赤</option>
+          <option value="#B2E7F9">青</option>
+          <option value="#DDF4BF">緑</option>
         </select>
 
         <label htmlFor="title">border_style:</label>

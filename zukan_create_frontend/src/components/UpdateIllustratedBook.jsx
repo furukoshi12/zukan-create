@@ -144,7 +144,19 @@ export const UpdateIllustratedBook = () => {
     });
   };
 
-  console.log(illustratedBook)
+  const handleReset = (id) => {
+    setIllustratedBook((prevIllustratedBook) => {
+      const updatedFieldDesigns = prevIllustratedBook.illustratedBookFieldDesigns.filter(
+        (design) => design.id !== id
+      );
+      
+      return {
+        ...prevIllustratedBook,
+        illustratedBookFieldDesigns: updatedFieldDesigns
+      };
+    });
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const contents = illustratedBook.illustratedBookFieldDesigns.map(design => ({
@@ -229,13 +241,14 @@ export const UpdateIllustratedBook = () => {
                         color: object.fieldDesign.attributes.color,
                         borderColor: object.fieldDesign.attributes.borderColor,
                         borderStyle: object.fieldDesign.attributes.borderStyle,
-                        borderRadius: object.fieldDesign.attributes.borderRadius,
+                        borderRadius: parseInt(object.fieldDesign.attributes.borderRadius, 10),
                         fontFamily: object.fieldDesign.attributes.fontFamily,
-                        fontSize: object.fieldDesign.attributes.fontSize,
+                        fontSize: parseInt(object.fieldDesign.attributes.fontSize, 10),
                         width: object.illustratedBook.width * areaSize.width,
                         height: object.illustratedBook.height * areaSize.height,
                       }}
                     />
+                    <button type="button" onClick={() => handleReset(object.illustratedBook.id)}>x</button>
                   </li>
                 ))}
               </ul>

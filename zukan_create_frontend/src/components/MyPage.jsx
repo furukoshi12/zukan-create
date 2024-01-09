@@ -34,25 +34,24 @@ function MyPage() {
   };
 
   useEffect(() => {
-    if (illustratedBooks.length === 0) {
-      client.get('/user/illustrated_books')
-        .then((response) => {
-          setIllustratedBooks(response.data.data);
-        })
-        .catch((error) => {
-          console.log('API_request_error', error);
-        });
-    }
-
-    client.get('/user/likes')
-      .then((response) => {
-        setLikes(response.data.data);
-      })
-      .catch((error) => {
+    const fetchData = async () => {
+      try {
+        if (illustratedBooks.length === 0) {
+          const illustratedBooksResponse = await client.get('/user/illustrated_books');
+          setIllustratedBooks(illustratedBooksResponse.data.data);
+        }
+  
+        const likesResponse = await client.get('/user/likes');
+        setLikes(likesResponse.data.data);
+      } catch (error) {
         console.log('API_request_error', error);
-      });
-  }, [illustratedBooks]);
-
+      }
+    };
+  
+    fetchData();
+  }, []);
+  
+  
   const handleTabChange = (tabName) => {
     setActiveTab(tabName);
   };

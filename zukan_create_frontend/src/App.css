@@ -317,6 +317,23 @@ h1 {
     margin: 10px;
 }
 
-.modal {
-  background-color: white;
+.modal-container ul {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.field-card {
+  flex-basis: calc(25% - 10px);
+  margin-bottom: 10px;
+}
+
+.template-card {
+  flex-basis: calc(25% - 10px);
+  margin-bottom: 10px;
+}
+
+
+.button {
+  align-self: flex-end;
 }
