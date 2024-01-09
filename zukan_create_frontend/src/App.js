@@ -12,6 +12,7 @@ import { FieldManagement } from './components/dashboard/FieldManagement';
 import { ShowIllustratedBook } from './components/ShowIllustratedBook';
 import TopPage from './components/TopPage';
 import { UpdateIllustratedBook } from './components/UpdateIllustratedBook';
+import { RequireAdmin } from './RequireAdmin';
 
 function App() {
   return (
@@ -25,11 +26,17 @@ function App() {
           <Route path="/illustrated_books/:id" element={<ShowIllustratedBook />} />
           <Route path="/new" element={<CreateIllustratedBook />} />
           <Route path="/user/illustrated_books/:id" element={<UpdateIllustratedBook />} />
-          <Route path="/dashboard/users" element={<UserManagement />} />
-          <Route path="/dashboard/posts" element={<PostManagement />} />
-          <Route path="dashboard/templates" element={<TemplateManagement />} />
-          <Route path="dashboard/fields" element={<FieldManagement />} />
-          {/*<Route path="dashboard/icons" element={<IconManagement />} />*/}
+          <Route path="/dashboard/*" element={
+            <RequireAdmin>
+              <Routes>
+                <Route path="users" element={<UserManagement />} />
+                <Route path="posts" element={<PostManagement />} />
+                <Route path="templates" element={<TemplateManagement />} />
+                <Route path="fields" element={<FieldManagement />} />
+                {/*<Route path='icons' element={<IconManagement />} />*/}
+              </Routes>
+            </RequireAdmin>
+          } />
       </Routes>
     </Router>
   );
