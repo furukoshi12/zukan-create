@@ -16,7 +16,6 @@ function LoginForm() {
       });
 
       handleLoginResponse(response);
-
     } catch (error) {
       console.error('Login faild', error);
     }
@@ -25,10 +24,12 @@ function LoginForm() {
   const handleLoginResponse = (response) => {
     const accessToken =  response.data['accessToken'];
     if (accessToken) {
-      localStorage.setItem('access-token', accessToken);
+      localStorage.setItem('access_token', accessToken);
       console.log('Access token saved:', accessToken);
 
       history('/mypage')
+    } else {
+      console.error('Invalid response data: no accessToken found');
     }
   };
 
@@ -38,10 +39,12 @@ function LoginForm() {
       <div className='content'>
         <h1>Login</h1>
         <div className='login-form'>
-          <p>Email</p>
-          <input type='email' placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
-          <p>Password</p>
-          <input type='password' placeholder='Password' value={password} onChange={(e) => setPassword(e.target.value)} />
+          <form>
+            <p>Email</p>
+            <input type='email' autoComplete='username' placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
+            <p>Password</p>
+            <input type='password' autoComplete="current-password" placeholder='Password' value={password} onChange={(e) => setPassword(e.target.value)} />
+          </form>
           <button className="button" onClick={handleLogin}>Login</button>
         </div>
       </div>

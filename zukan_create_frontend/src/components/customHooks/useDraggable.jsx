@@ -23,25 +23,25 @@ const useDraggable = (selector, onUpdatePosition) => {
         },
       })
 
-      const handleUpdatePosition = (event) => {
-        const target = event.target;
-        const uuid = target.getAttribute('data-id');
-        const x = parseFloat(target.style.left) || 0;
-        const y = parseFloat(target.style.top) || 0;
+    const handleUpdatePosition = (event) => {
+      const target = event.target;
+      const uuid = target.getAttribute('data-id');
+      const x = parseFloat(target.style.left) || 0;
+      const y = parseFloat(target.style.top) || 0;
 
-        const draggableArea = document.querySelector('.draggable-area');
+      const draggableArea = document.querySelector('.draggable-area');
 
-        if (x < 0 || y < 0 || x > draggableArea.offsetWidth || y > draggableArea.offsetHeight) {
-          target.style.left = '0px';
-          target.style.top = '0px';
-        }
-        onUpdatePosition(uuid, x, y);
-      };
-      
-    return () => {
-      draggableInstance.unset();
+      if (x < 0 || y < 0 || x > draggableArea.offsetWidth || y > draggableArea.offsetHeight) {
+        target.style.left = '0px';
+        target.style.top = '0px';
+      }
+      onUpdatePosition(uuid, x, y);
     };
-  }, [onUpdatePosition, selector]);
+    
+  return () => {
+    draggableInstance.unset();
+  };
+  }, [selector, onUpdatePosition]);
 };
 
 export default useDraggable;

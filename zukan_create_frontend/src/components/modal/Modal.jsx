@@ -32,13 +32,13 @@ export const Modal = ({ onAddInput, onAddTemplate }) => {
       >
         <ChevronRightIcon/>Field List
       </li>
-      <ReactModal
-        isOpen={fieldModal}
-        contentLabel="Field Modal"
-      >
-        Field modal
-        <Fields onAddInput={onAddInput}/>
-        <button className="button" onClick={handleCloseFieldModal}>Close</button>
+      <ReactModal isOpen={fieldModal} contentLabel="Field Modal">
+        <div className='modal'>
+          <div class="modal-container">
+            <Fields onAddInput={onAddInput}/>
+          </div>
+          <button className="button" onClick={handleCloseFieldModal}>Close</button>
+        </div>
       </ReactModal>
 
       <li
@@ -47,13 +47,13 @@ export const Modal = ({ onAddInput, onAddTemplate }) => {
       >
         <ChevronRightIcon/>Template List
       </li>
-      <ReactModal
-        isOpen={templateModal}
-        contentLabel="Template Modal"
-      >
-        Template modal
-        <Templates onAddTemplate={onAddTemplate}/>
-        <button className="button" onClick={handleCloseTemplateModal}>Close</button>
+      <ReactModal isOpen={templateModal} contentLabel="Template Modal">
+        <div className='modal'>
+          <div class="modal-container">
+            <Templates onAddTemplate={onAddTemplate}/>
+          </div>
+          <button className="button" onClick={handleCloseTemplateModal}>Close</button>
+        </div>
       </ReactModal>
     </div>
   );

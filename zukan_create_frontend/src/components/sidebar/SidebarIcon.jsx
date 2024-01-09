@@ -6,7 +6,7 @@ function SidebarIcon() {
   const [userName, setUserName] = useState('');
 
   useEffect(() => {
-    const accessToken = localStorage.getItem('access-token');
+    const accessToken = localStorage.getItem('access_token');
     if (accessToken) {
       client.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
     

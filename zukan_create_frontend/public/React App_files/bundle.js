@@ -1004,7 +1004,7 @@ function LoginForm() {
   const handleLoginResponse = response => {
     const accessToken = response.data['accessToken'];
     if (accessToken) {
-      localStorage.setItem('access-token', accessToken);
+      localStorage.setItem('access_token', accessToken);
       console.log('Access token saved:', accessToken);
       history('/mypage');
     }
