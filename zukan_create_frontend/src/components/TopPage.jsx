@@ -16,22 +16,26 @@ function TopPage(){
       <nav className='top-nav'>
         <ul>
           <li>
-            <Link to="/signup">SignUp</Link>
+            <Link className='top-link' to="/signup">SignUp</Link>
           </li>
           <li>
-            <Link to="/login">Login</Link>
+            <Link className='top-link' to="/login">Login</Link>
           </li>
         </ul>
       </nav>
 
       <div className='box-container'>
         <Box className='left-box'>
-        <p>当サービスは出会った生き物を記録して、オリジナルの図鑑が作成できるサービスです。</p>
-        <button className='button'>ゲストで図鑑作成</button>
+          <p>当サービスは出会った生き物を記録して、オリジナルの図鑑が作成できるサービスです。</p>
+          {/*<button className='button'>
+            <Link className='top-link' to="/illustratedbooks">ゲストで図鑑作成</Link>
+          </button>*/}
         </Box>
         <Box className='left-box'>
-        <p>作成した図鑑は他のユーザーと共有することができます。</p>
-        <button className='button'>図鑑を見る</button>
+          <p>作成した図鑑は他のユーザーと共有することができます。</p>
+          <button className='button'>
+            <Link className='top-link' to="/illustratedbooks">図鑑を見る</Link>
+          </button>
         </Box>
       </div>
 

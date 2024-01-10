@@ -63,7 +63,7 @@ export const PolicyViewer = () => {
 
         以上の条件に同意いただける方は、本サービスをご利用いただけます。
       </div>
-      <a terget="_blank" href="https://www.kiyac.app/privacypolicy/z9Qszvd4zxC71P5DZOc0">プライバシーポリシー</a>
+      <a className='privacy-policy' terget="_blank" href="https://www.kiyac.app/privacypolicy/z9Qszvd4zxC71P5DZOc0">プライバシーポリシー</a>
       <button
         className='policy-button'
         type='button'                

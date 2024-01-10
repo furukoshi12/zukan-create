@@ -78,6 +78,11 @@ html, body, #root {
   margin-top: 30px;
 }
 
+.top-link {
+  color: white;
+  text-decoration: none;
+}
+
 .bottom-nav {
   position: absolute;
   bottom: 0;
@@ -365,8 +370,4 @@ h1 {
 .template-card {
   flex-basis: calc(25% - 10px);
   margin-bottom: 10px;
-}
-
-.button {
-  align-self: flex-end;
 }
