@@ -1,6 +1,7 @@
 import { Box } from '@mui/material';
 import React from 'react'
 import { useLocation, Link } from 'react-router-dom';
+import { GuestLogin } from './GuestLogin';
 
 
 function TopPage(){
@@ -27,9 +28,7 @@ function TopPage(){
       <div className='box-container'>
         <Box className='left-box'>
           <p>当サービスは出会った生き物を記録して、オリジナルの図鑑が作成できるサービスです。</p>
-          {/*<button className='button'>
-            <Link className='top-link' to="/illustratedbooks">ゲストで図鑑作成</Link>
-          </button>*/}
+          <GuestLogin />
         </Box>
         <Box className='left-box'>
           <p>作成した図鑑は他のユーザーと共有することができます。</p>
