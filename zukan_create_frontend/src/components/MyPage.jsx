@@ -5,12 +5,21 @@ import Likes from './Likes';
 import client from '../lib/api/client';
 import { SearchComponent } from './SearchComponent';
 import { Alert, Snackbar } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 
 function MyPage() {
   const [activeTab, setActiveTab] = useState('illustrated_books');
   const [illustratedBooks, setIllustratedBooks] = useState([]);
   const [likes, setLikes] = useState([]);
   const [flashMessage, setFlashMessage] = useState('');
+  const history = useNavigate();
+
+  useEffect(() => {
+    const userRole = localStorage.getItem('user_role');
+    if (userRole === 'guest'){
+      history('/login')
+    }
+  }, [history])
 
   const handleSearchResults = async (searchTerm) => {
     try {
