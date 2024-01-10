@@ -28,7 +28,7 @@ function SignUp(){
     })
     .catch((error) => {
       console.error('SignUp Faild', error.response);
-      setError('サインアップに失敗しました。');
+      setError('サインアップに失敗しました');
     });
   };
 
@@ -37,17 +37,19 @@ function SignUp(){
       <Sidebar />
       <div className='content'>
         <h1>SignUp</h1>
+        <div className='flash-message'>{error && <div>{error}</div>}</div>
         <div className='login-form'>
-        {error && <div>{error}</div>}
-          <p>Name</p>
-          <input type='text' placeholder="Name" value={name} onChange={(e) => setName(e.target.value)} />
-          <p>Email</p>
-          <input type='email' placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
-          <p>Password</p>
-          <input type='password' placeholder='Password' value={password} onChange={(e) => setPassword(e.target.value)} />
-          <p>PasswordConfirmation</p>
-          <input type='password' placeholder='PasswordConfirmation' value={password_confirmation} onChange={(e) => setPasswordConfirmation(e.target.value)} />
-          <button className="button" onClick={handleSignUp}>SignUp</button>
+          <form>
+            <p>名前</p>
+            <input type='text' placeholder="Name" value={name} onChange={(e) => setName(e.target.value)} />
+            <p>メールアドレス</p>
+            <input type='email' placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
+            <p>パスワード</p>
+            <input type='password' placeholder='Password' value={password} onChange={(e) => setPassword(e.target.value)} />
+            <p>パスワード（確認用）</p>
+            <input type='password' placeholder='PasswordConfirmation' value={password_confirmation} onChange={(e) => setPasswordConfirmation(e.target.value)} />
+            <button type='button' className="button" onClick={handleSignUp}>SignUp</button>
+          </form>
         </div>
       </div>
     </div>

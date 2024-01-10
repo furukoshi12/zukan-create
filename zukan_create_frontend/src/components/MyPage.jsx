@@ -65,13 +65,13 @@ function MyPage() {
             onClick={() => handleTabChange('illustrated_books')}
             className={activeTab === 'illustrated_books' ? 'active' : ''}
           >
-            Illustrated Books
+            図鑑一覧
           </button>
           <button
             onClick={() => handleTabChange('likes')}
             className={activeTab === 'likes' ? 'active' : ''}
           >
-            Likes
+            お気に入り一覧
           </button>
         </div>
           {activeTab === 'illustrated_books' && (

@@ -19,7 +19,7 @@ export const SearchComponent = ({setSearchTerm}) => {
         value={inputValue}
         onChange={handleInputChange}
         />
-        <button onClick={handleSearchClick}>Search</button>
+        <button onClick={handleSearchClick}>検索</button>
     </>
   );
 };

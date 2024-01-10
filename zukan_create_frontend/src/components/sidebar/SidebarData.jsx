@@ -29,11 +29,11 @@ export const SidebarFooterData = [
   {
     title: "利用規約",
     icon: <GradingIcon />,
-    link: "/regulation",
+    link: "/terms",
   },
-  {
+  /*{
     title: "お問い合わせ",
     icon: <MailIcon />,
     link: "/mail",
-  }
+  }*/
 ];

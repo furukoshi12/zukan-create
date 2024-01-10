@@ -30,7 +30,7 @@ export const Modal = ({ onAddInput, onAddTemplate }) => {
         className="row"
         onClick={handleOpenFieldModal}
       >
-        <ChevronRightIcon/>Field List
+        <ChevronRightIcon/>フィールド
       </li>
       <ReactModal isOpen={fieldModal} contentLabel="Field Modal">
         <div className='modal'>
@@ -45,7 +45,7 @@ export const Modal = ({ onAddInput, onAddTemplate }) => {
         className='row'
         onClick={handleOpenTemplateModal}
       >
-        <ChevronRightIcon/>Template List
+        <ChevronRightIcon/>テンプレート
       </li>
       <ReactModal isOpen={templateModal} contentLabel="Template Modal">
         <div className='modal'>

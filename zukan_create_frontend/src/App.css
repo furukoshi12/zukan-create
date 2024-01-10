@@ -47,11 +47,46 @@ html, body, #root {
   transform: translateY(2px);
 }
 
+.policy-button {
+  margin: 10px;
+}
+
 .top-page {
   background-image: url("./images/top.webp");
   background-repeat: no-repeat;
   background-size: 50% auto;
   background-position: right top;
+  display: block;
+  position: absolute;
+}
+
+.top-nav {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.box-container {
+  display: block;
+  justify-content: space-between;
+  align-items: center;
+  margin: 10% 10%;
+}
+
+.left-box {
+  width: 50%;
+  margin-top: 30px;
+}
+
+.top-link {
+  color: white;
+  text-decoration: none;
+}
+
+.bottom-nav {
+  position: absolute;
+  bottom: 0;
+  right: 0;
 }
 
 ul {
@@ -69,8 +104,8 @@ ul li {
 .top-logo {
   font-family: 'MochiyPopOne';
   color: #f9a980;
-  float: left;
-  margin: 10px;
+  margin: 0 0 10px 10px;
+  padding: 10px;
 }
 
 .login-form {
@@ -117,6 +152,10 @@ h1 {
 
 .wrapper {
   width: 30%;
+}
+
+.flash-message {
+  text-align: center;
 }
 
 .Sidebar{
@@ -192,7 +231,7 @@ h1 {
 
 .search button {
   color: white;
-  padding: 5px;
+  padding: 3px;
   background-color: #f9a980;
   border-radius: 0 5px 5px 0;
 }
@@ -261,11 +300,11 @@ h1 {
   border: none;
 }
 
-.tabs button:hover::after {
+.tabs button:hover::after{
 	transform: scaleX(1);
 }
 
-.tabs button::after {
+.tabs button::after{
 	content: '';
 	position: absolute;
 	bottom: 0;
@@ -277,7 +316,7 @@ h1 {
 	transition: transform 0.3s;
 }
 
-.tabs button.active::after {
+.tabs button.active::after{
 	transform: scaleX(1);
 }
 
@@ -331,9 +370,4 @@ h1 {
 .template-card {
   flex-basis: calc(25% - 10px);
   margin-bottom: 10px;
-}
-
-
-.button {
-  align-self: flex-end;
 }
