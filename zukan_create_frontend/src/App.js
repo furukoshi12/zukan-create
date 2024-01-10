@@ -13,6 +13,7 @@ import { ShowIllustratedBook } from './components/ShowIllustratedBook';
 import TopPage from './components/TopPage';
 import { UpdateIllustratedBook } from './components/UpdateIllustratedBook';
 import { RequireAdmin } from './RequireAdmin';
+import { PolicyViewer } from './components/PolicyViewer';
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
           <Route path="/illustrated_books/:id" element={<ShowIllustratedBook />} />
           <Route path="/new" element={<CreateIllustratedBook />} />
           <Route path="/user/illustrated_books/:id" element={<UpdateIllustratedBook />} />
+          <Route path="/terms" element={<PolicyViewer />} />
           <Route path="/dashboard/*" element={
             <RequireAdmin>
               <Routes>

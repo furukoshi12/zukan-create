@@ -41,7 +41,7 @@ function Sidebar({onAddInput, onAddTemplate}) {
                 id={window.location.pathname === value.link ? "active" : ""}
                 className="row footer"
                 onClick={() => {
-                  window.location.pathname = value.link;
+                  window.location.replace(value.link);
                 }}
               >
                 <div id="icon">{value.icon}</div>

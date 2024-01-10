@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 function LoginForm() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState(null);
   const history = useNavigate();
 
   const handleLogin = async () => {
@@ -18,6 +19,7 @@ function LoginForm() {
       handleLoginResponse(response);
     } catch (error) {
       console.error('Login faild', error);
+      setError('ログインに失敗しました');
     }
   };
 
@@ -25,11 +27,8 @@ function LoginForm() {
     const accessToken =  response.data['accessToken'];
     if (accessToken) {
       localStorage.setItem('access_token', accessToken);
-      console.log('Access token saved:', accessToken);
 
       history('/mypage')
-    } else {
-      console.error('Invalid response data: no accessToken found');
     }
   };
 
@@ -38,14 +37,15 @@ function LoginForm() {
       <Sidebar />
       <div className='content'>
         <h1>Login</h1>
+        <div className='flash-message'>{error && <div>{error}</div>}</div>
         <div className='login-form'>
           <form>
-            <p>Email</p>
+            <p>メールアドレス</p>
             <input type='email' autoComplete='username' placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
-            <p>Password</p>
+            <p>パスワード</p>
             <input type='password' autoComplete="current-password" placeholder='Password' value={password} onChange={(e) => setPassword(e.target.value)} />
+            <button type='button' className="button" onClick={handleLogin}>Login</button>
           </form>
-          <button className="button" onClick={handleLogin}>Login</button>
         </div>
       </div>
     </div>
