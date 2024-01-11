@@ -16,15 +16,16 @@ function IllustratedBooks(){
   const handleSearchResults = async (searchTerm) => {
     try {
       const response = await client.get('/illustrated_books', { params: {search: searchTerm }});
-      const data = response.data.data;
+      const data = response?.data?.data;
+      console.log(data)
 
-      if (data.length === 0) {
+      if (data && data.length === 0) {
         setFlashMessage('お探しの図鑑は見つかりませんでした。')
-      } else {
+        setIllustratedBooks([]);
+      } else if (data) {
         setFlashMessage('');
+        setIllustratedBooks(data);
       }
-
-      setIllustratedBooks(data);
     } catch (error) {
       console.error('Error fetching search results:', error);
     }
@@ -35,6 +36,7 @@ function IllustratedBooks(){
   };
 
   useEffect(() => {
+    console.log(illustratedBooks)
     if (illustratedBooks.length === 0) {
       client.get('/illustrated_books')
       .then((response) => {
@@ -44,12 +46,11 @@ function IllustratedBooks(){
         console.log('API_reuest_error', error);
       });
     }
-  }, [illustratedBooks]);
+  }, []);
 
   const handleSelectIllustratedBook = (illustratedBook) => {
     history(`/illustrated_books/${illustratedBook.id}`);
   };
-
 
   return (
     <div className='container'>
@@ -65,7 +66,7 @@ function IllustratedBooks(){
             </Snackbar>
           </div>
         <ul className='grid'>
-          {illustratedBooks.map(illustratedBook => (
+          {illustratedBooks && illustratedBooks.map(illustratedBook => (
             <li key={illustratedBook.id} className='illustrated-book-card'>
               <Box>
                 <img src={illustratedBook.attributes.image.url || defaultImagePath} alt='Preview' style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
