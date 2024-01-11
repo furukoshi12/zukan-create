@@ -25,8 +25,10 @@ function LoginForm() {
 
   const handleLoginResponse = (response) => {
     const accessToken =  response.data['accessToken'];
+    const role = response.data.data.attributes.role;
     if (accessToken) {
       localStorage.setItem('access_token', accessToken);
+      localStorage.setItem('user_role', role)
 
       history('/mypage')
     }

@@ -31,7 +31,7 @@ function MyIllustratedBooks({ illustratedBooks }) {
   return (
     <>
       <ul className='grid'>
-        {illustratedBooks.map(illustratedBook => (
+        {illustratedBooks && illustratedBooks.map(illustratedBook => (
           <li key={illustratedBook.id} className='illustrated-book-card'>
             <Box>
               <img src={illustratedBook.attributes.image.url || defaultImagePath} alt='Preview' style={{ width: '100%', height: '100%', objectFit: 'contain' }} />

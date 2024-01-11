@@ -5,8 +5,14 @@ const options = {
   ignoreHeaders: true
 }
 
+const defaultBaseURL = 'http://localhost:3000';
+
+const baseURL = process.env.NODE_ENV === 'production'
+  ? process.env.REACT_APP_API_BASE_URL
+  : defaultBaseURL;
+
 const client = applyCaseMiddleware(axios.create({
-  baseURL: "http://localhost:3001/api/v1",
+  baseURL: baseURL,
   withCredentials: true
 }), options);
 
