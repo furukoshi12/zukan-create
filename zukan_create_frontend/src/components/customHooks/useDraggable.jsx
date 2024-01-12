@@ -34,8 +34,13 @@ const useDraggable = (selector, onUpdatePosition) => {
       if (x < 0 || y < 0 || x > draggableArea.offsetWidth || y > draggableArea.offsetHeight) {
         target.style.left = '0px';
         target.style.top = '0px';
+
+        setTimeout(() => {
+          onUpdatePosition(uuid, 0, 0);
+        }, 0);
+      } else {
+        onUpdatePosition(uuid, x, y);
       }
-      onUpdatePosition(uuid, x, y);
     };
     
   return () => {

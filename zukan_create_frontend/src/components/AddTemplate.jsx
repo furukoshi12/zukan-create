@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import useDraggable from './customHooks/useDraggable';
 import useResizable from './customHooks/useResizable';
 
-function AddTemplate({ onFieldContent, areaSize, templateData, onUpdatePosition, onUpdateSize }) {
+function AddTemplate({ onUpdateInputs, onFieldContent, areaSize, templateData, onUpdatePosition, onUpdateSize }) {
   useDraggable('.field-card', onUpdatePosition);
   useResizable('.field-card-text', onUpdateSize);
   const [inputs, setInputs] = useState([]);
@@ -44,7 +44,13 @@ function AddTemplate({ onFieldContent, areaSize, templateData, onUpdatePosition,
       const updateInputs = prevInputs.filter((input) => input.uuid !== uuid);
       return updateInputs;
     });
-  };
+
+    const deleteInput = inputs.find((input) => input.uuid === uuid)
+    const FieldDesignTemplateDatas = templateData.fieldDesigns.filter((templateData) => templateData.uuid !== uuid)
+    const TempFieldTemplateDatas = templateData.templateFieldDesigns.filter((templateData) => deleteInput.xPosition !== templateData.attributes.xPosition && deleteInput.yPosition !== templateData.attributes.yPosition)
+    const newTemplate = {id: templateData.id,fieldDesigns: FieldDesignTemplateDatas, templateFieldDesigns: TempFieldTemplateDatas}
+    onUpdateInputs(newTemplate)
+  }
 
   return (
     <>

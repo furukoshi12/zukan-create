@@ -5,7 +5,7 @@ const options = {
   ignoreHeaders: true
 }
 
-const defaultBaseURL = 'http://localhost:3000';
+const defaultBaseURL = 'http://localhost:3001/api/v1';
 
 const baseURL = process.env.NODE_ENV === 'production'
   ? process.env.REACT_APP_API_BASE_URL
