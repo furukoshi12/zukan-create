@@ -53,7 +53,7 @@ function MyPage() {
         const likesResponse = await client.get('/user/likes');
         setLikes(likesResponse.data.data);
       } catch (error) {
-        console.log('API_request_error', error);
+        console.error('API_request_error', error);
       }
     };
   

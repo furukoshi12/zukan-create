@@ -23,7 +23,6 @@ function SignUp(){
 
     client.post('/signup', userData)
     .then((response) => {
-      console.log('SignUp Success', response.data);
       history('/login');
     })
     .catch((error) => {

@@ -12,7 +12,7 @@ function LikeButton({ illustratedBookId }) {
       setLiked(response.data.likeExists);
     })
     .catch((error) => {
-      console.log('liked_error', error);
+      console.error('liked_error', error);
     });
   }, [illustratedBookId]);
 

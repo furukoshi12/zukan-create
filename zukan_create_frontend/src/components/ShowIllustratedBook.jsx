@@ -23,7 +23,7 @@ export const ShowIllustratedBook = () => {
       setIllustratedBook(response.data.data.attributes)
     })
     .catch((error) => {
-      console.log(error);
+      console.error(error);
     });
   }, [id]);
 
@@ -36,7 +36,7 @@ export const ShowIllustratedBook = () => {
         setUsedFields(responses)
       })
       .catch((error) => {
-        console.log(error);
+        console.error(error);
       });
     }
   }, [illustratedBook]);

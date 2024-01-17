@@ -17,7 +17,6 @@ function IllustratedBooks(){
     try {
       const response = await client.get('/illustrated_books', { params: {search: searchTerm }});
       const data = response?.data?.data;
-      console.log(data)
 
       if (data && data.length === 0) {
         setFlashMessage('お探しの図鑑は見つかりませんでした。')
@@ -36,14 +35,13 @@ function IllustratedBooks(){
   };
 
   useEffect(() => {
-    console.log(illustratedBooks)
     if (illustratedBooks.length === 0) {
       client.get('/illustrated_books')
       .then((response) => {
         setIllustratedBooks(response.data.data)
       })
       .catch((error) => {
-        console.log('API_reuest_error', error);
+        console.error('API_reuest_error', error);
       });
     }
   }, []);

@@ -101,7 +101,7 @@ export const UpdateIllustratedBook = () => {
         setUsedFields(responses)
       })
       .catch((error) => {
-        console.log(error);
+        console.error(error);
       });
     }
   }, [illustratedBook]);

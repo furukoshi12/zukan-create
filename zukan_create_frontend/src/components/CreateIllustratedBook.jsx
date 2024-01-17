@@ -41,7 +41,7 @@ export const CreateIllustratedBook = () => {
     setTemplate(templateData);
   };
 
-  const handleUpdateInputs = (newInputs) => {
+  const handleUpdateTemplate = (newInputs) => {
     setTemplate(newInputs)
   };
 
@@ -79,7 +79,10 @@ export const CreateIllustratedBook = () => {
     setTemplate((prevTemplate) => {
       if (prevTemplate && prevTemplate.templateFieldDesigns !== null) {
         const fieldDesignToUpdate = prevTemplate.fieldDesigns.find((fieldDesign) => fieldDesign.uuid === uuid);
-        if (fieldDesignToUpdate) {
+        if (!fieldDesignToUpdate) {
+          return prevTemplate;
+        }
+
           const updatedTemplateFieldDesigns = prevTemplate.templateFieldDesigns.map((templateFieldDesign) => {
             if (templateFieldDesign.xPosition === fieldDesignToUpdate.attributes.relationTemplates.map((relationTemplate) => relationTemplate.xPosition) ||
                 templateFieldDesign.yPosition === fieldDesignToUpdate.attributes.relationTemplates.map((relationTemplate) => relationTemplate.yPosition)
@@ -100,7 +103,6 @@ export const CreateIllustratedBook = () => {
             ...prevTemplate,
             templateFieldDesigns: updatedTemplateFieldDesigns,
           };
-        }
       } else {
         return prevTemplate;
       }
@@ -111,7 +113,9 @@ export const CreateIllustratedBook = () => {
     setTemplate((prevTemplate) => {
       if (prevTemplate && prevTemplate.templateFieldDesigns !== null) {
         const fieldDesignToUpdate = prevTemplate.fieldDesigns.find((fieldDesign) => fieldDesign.uuid === uuid);
-        if (fieldDesignToUpdate) {
+        if (!fieldDesignToUpdate) {
+          return prevTemplate;
+        }
           const updatedTemplateFieldDesigns = prevTemplate.templateFieldDesigns.map((templateFieldDesign) => {
             if (templateFieldDesign.width === fieldDesignToUpdate.attributes.relationTemplates.map((relationTemplate) => relationTemplate.width) ||
                 templateFieldDesign.height === fieldDesignToUpdate.attributes.relationTemplates.map((relationTemplate) => relationTemplate.height)
@@ -132,7 +136,6 @@ export const CreateIllustratedBook = () => {
             ...prevTemplate,
             templateFieldDesigns: updatedTemplateFieldDesigns,
           };
-        }
       } else {
         return prevTemplate;
       }
@@ -290,7 +293,7 @@ export const CreateIllustratedBook = () => {
       setImagePosition({ x: 0, y: 0 })
       history("/mypage");
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 
@@ -302,7 +305,6 @@ export const CreateIllustratedBook = () => {
   };
 
   const updateImagePosition = (uuid, x, y) => {
-    console.log(x,y)
     if (uuid === null) {
       setImagePosition({ x: x, y: y });
     }
@@ -323,7 +325,7 @@ export const CreateIllustratedBook = () => {
           <ImageForm setImage={setImage} inputRef={inputRef} />
           <div className="draggable-area" ref={templateRef} >
             {image && <ImagePreviewer imageFile={image} onReset={resetPreview} imagePosition={imagePosition} inputRef={inputRef} onUpdatePosition={updateImagePosition} />}
-            <AddTemplate areaSize={areaSize} onUpdateInputs={handleUpdateInputs} templateData={template} onFieldContent={onFieldContent} onUpdatePosition={updateTemplatePosition} onUpdateSize={updateTemplateSize} />
+            <AddTemplate areaSize={areaSize} onUpdateInputs={handleUpdateTemplate} templateData={template} onFieldContent={onFieldContent} onUpdatePosition={updateTemplatePosition} onUpdateSize={updateTemplateSize} />
             <AddField data={inputs} onRemoveItem={removeItem} onFieldContent={onFieldContent} onUpdatePosition={updateInputPosition} onUpdateSize={updateInputSize}/>
           </div>
           <ReactTags
