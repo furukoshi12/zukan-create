@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import client from '../lib/api/client'
-import Sidebar from './sidebar/Sidebar';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { KeyboardReturn } from '@mui/icons-material';
 
 function LoginForm() {
   const [email, setEmail] = useState('');
@@ -36,7 +36,9 @@ function LoginForm() {
 
   return (
     <div className='container'>
-      <Sidebar />
+      <Link to="/" >
+        <KeyboardReturn/>
+      </Link>
       <div className='content'>
         <h1>Login</h1>
         <div className='flash-message'>{error && <div>{error}</div>}</div>

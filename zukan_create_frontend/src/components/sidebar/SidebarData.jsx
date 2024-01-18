@@ -1,7 +1,7 @@
 import React from 'react'
 import {
   Home,
-  Mail as MailIcon,
+  //Mail as MailIcon,
   Grading as GradingIcon,
   List as ListIcon,
   Create as CreateIcon,

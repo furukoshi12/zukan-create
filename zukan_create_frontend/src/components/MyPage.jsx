@@ -17,7 +17,7 @@ function MyPage() {
   useEffect(() => {
     const userRole = localStorage.getItem('user_role');
     if (userRole === 'guest'){
-      history('/login')
+      history('/signup', {state: { flashMessage: 'ユーザー登録が必要です' }});
     }
   }, [history])
 
