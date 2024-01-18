@@ -1,15 +1,22 @@
-import React, { useState } from 'react'
-import Sidebar from './sidebar/Sidebar'
+import React, { useEffect, useState } from 'react'
 import client from '../lib/api/client';
-import { useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { KeyboardReturn } from '@mui/icons-material';
 
 function SignUp(){
   const history = useNavigate();
+  const location = useLocation(false);
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [password_confirmation, setPasswordConfirmation] = useState('');
   const [error, setError] = useState(null);
+
+  useEffect(() => {
+    if (location.state && location.state.flashMessage) {
+      setError(location.state.flashMessage);
+    }
+  }, [history]);
 
   const handleSignUp = async () => {
     const userData = {
@@ -33,7 +40,9 @@ function SignUp(){
 
   return (
     <div className='container'>
-      <Sidebar />
+      <Link to="/" >
+        <KeyboardReturn/>
+      </Link>
       <div className='content'>
         <h1>SignUp</h1>
         <div className='flash-message'>{error && <div>{error}</div>}</div>
