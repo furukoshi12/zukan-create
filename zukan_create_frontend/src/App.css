@@ -15,11 +15,6 @@ html, body, #root {
   box-sizing: border-box;
 }
 
-.App {
-  width: 100%;
-  height: 100vh;
-  }
-
 .container {
   height: 100%;
   width: 100%;
@@ -51,13 +46,27 @@ html, body, #root {
   margin: 10px;
 }
 
+.top-wrapper {
+  height: 100%;
+}
+
+@media (max-width: 800px) {
+  .top-wrapper {
+    height: auto;
+  }
+}
+
+
 .top-page {
+  width: 100%;
+  height: 100%;
+  margin-bottom: 3rem;
   background-image: url("./images/top.webp");
   background-repeat: no-repeat;
-  background-size: 50% auto;
-  background-position: right top;
+  background-size: contain;
+  background-position: right;
   display: block;
-  position: absolute;
+  position: relative;
 }
 
 .top-nav {
@@ -68,25 +77,22 @@ html, body, #root {
 
 .box-container {
   display: block;
-  justify-content: space-between;
-  align-items: center;
-  margin: 10% 10%;
+  text-align: center;
+  font-size: 2vw;
 }
 
 .left-box {
+  margin-top: 10%;
   width: 50%;
-  margin-top: 30px;
+}
+
+.left-box  button{
+  font-size: 2vw;
 }
 
 .top-link {
   color: white;
   text-decoration: none;
-}
-
-.bottom-nav {
-  position: absolute;
-  bottom: 0;
-  right: 0;
 }
 
 ul {
@@ -106,6 +112,24 @@ ul li {
   color: #f9a980;
   margin: 0 0 10px 10px;
   padding: 10px;
+}
+
+.how_to_use {
+  background-color: white; 
+  width: 80vw;
+  margin: 10px auto;
+  padding: 10px;
+  text-align: center;
+  font-size: 2vw;
+}
+
+.how_to_use p {
+  text-align: left;
+  margin-left: 20%;
+}
+
+.how_to_use img {
+  width: 70%;
 }
 
 .login-form {
@@ -213,10 +237,6 @@ h1 {
   color: white;
   font-weight: 600;
   font-size: 20px;
-}
-
-.modal-list {
-  margin-left: 30%;
 }
 
 .search {
@@ -332,6 +352,14 @@ h1 {
   height: auto;
 }
 
+.content-create input {
+  width: 100%;
+  max-width: 430px;
+  height: 2rem;
+  margin: 5px;
+  box-sizing: border-box;
+}
+
 .draggable-area {
   background-color: white;
   width: 100vw;
@@ -348,6 +376,29 @@ h1 {
     height: 100vh;
   }
 }
+
+/*react-tags*/
+.ReactTags__suggestions {
+  width: 0;
+}
+
+.ReactTags__suggestions ul {
+  margin: 4px 1px;
+  padding: 0;
+  list-style: none;
+}
+
+.ReactTags__suggestions li mark {
+  text-decoration: underline;
+  background: none;
+  font-weight: 600;
+}
+
+.ReactTags__suggestions li:hover {
+  cursor: pointer;
+  background: #eee;
+}
+/*react-tags*/
 
 .screen-change {
     position: fixed;

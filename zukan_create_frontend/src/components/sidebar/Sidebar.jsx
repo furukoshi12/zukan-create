@@ -2,11 +2,8 @@ import React from 'react'
 import { SidebarData, SidebarFooterData } from './SidebarData';
 import SidebarIcon from './SidebarIcon';
 import { Link } from 'react-router-dom';
-import Modal from '../modal/Modal';
 
-function Sidebar({onAddInput, onAddTemplate}) {
-  const isModalVisible = window.location.pathname === '/new';
-
+function Sidebar() {
   return (
     <div className='wrapper' >
       <div className='Sidebar'>
@@ -31,8 +28,6 @@ function Sidebar({onAddInput, onAddTemplate}) {
               </li>
             );
           })}
-
-          {isModalVisible && <Modal onAddInput={onAddInput} onAddTemplate={onAddTemplate} />}
 
           {SidebarFooterData.map((value, key) => {
             return(
