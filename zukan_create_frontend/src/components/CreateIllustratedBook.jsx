@@ -8,6 +8,7 @@ import AddTemplate from './AddTemplate';
 import { v4 as uuidv4 } from 'uuid';
 import { useDraggableAreaSize } from './customHooks/useDraggableAreaSize';
 import { ImageForm, ImagePreviewer } from './ImageForm';
+import Modal from './modal/Modal';
 
 export const CreateIllustratedBook = () => {
   const [title, setTitle] = useState('');
@@ -201,10 +202,6 @@ export const CreateIllustratedBook = () => {
     fetchTags();
   }, []);
 
-  const onClickHome = () => {
-    history("/mypage");
-  };
-
   const handleChange = (e) => {
     setTitle(e.target.value);
   };
@@ -313,23 +310,24 @@ export const CreateIllustratedBook = () => {
 
   return (
     <div className='container'>
-      <Sidebar onAddInput={handleAddInput} onAddTemplate={handleAddTemplate} />
+      <Sidebar />
       <div className='content-create'>
         <form>
+          <Modal  onAddInput={handleAddInput} onAddTemplate={handleAddTemplate} />
+          <ImageForm setImage={setImage} inputRef={inputRef} />
           <input
             type="text"
-            placeholder="Japanes Name"
+            placeholder="生き物の種類を入れてください"
             onChange={(e) => handleChange(e)}
             value={title}
           />
-          <ImageForm setImage={setImage} inputRef={inputRef} />
           <div className="draggable-area" ref={templateRef} >
             {image && <ImagePreviewer imageFile={image} onReset={resetPreview} imagePosition={imagePosition} inputRef={inputRef} onUpdatePosition={updateImagePosition} />}
             <AddTemplate areaSize={areaSize} onUpdateInputs={handleUpdateTemplate} templateData={template} onFieldContent={onFieldContent} onUpdatePosition={updateTemplatePosition} onUpdateSize={updateTemplateSize} />
             <AddField data={inputs} onRemoveItem={removeItem} onFieldContent={onFieldContent} onUpdatePosition={updateInputPosition} onUpdateSize={updateInputSize}/>
           </div>
           <ReactTags
-            placeholder="Enterでタグ追加"
+            placeholder="タグを入れてEnterを押してください"
             tags={tags}
             suggestions={suggestions}
             handleDelete={(i) => handleDelete(i)}
@@ -337,9 +335,6 @@ export const CreateIllustratedBook = () => {
           />
           <button type="submit" className="button" onClick={(e) => handleSubmit(e)}>
             投稿
-          </button>
-          <button className="button" onClick={onClickHome}>
-            戻る
           </button>
         </form>
       </div>

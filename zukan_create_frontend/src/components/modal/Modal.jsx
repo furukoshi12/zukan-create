@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import ReactModal from 'react-modal';
 import Fields from './Fields';
 import Templates from './Templates';
-import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 
 export const Modal = ({ onAddInput, onAddTemplate }) => {
   const [fieldModal, setFieldModal] = useState(false);
@@ -26,12 +25,9 @@ export const Modal = ({ onAddInput, onAddTemplate }) => {
 
   return (
     <div className='modal-list'>
-      <li 
-        className="row"
-        onClick={handleOpenFieldModal}
-      >
-        <ChevronRightIcon/>フィールド
-      </li>
+      <button type='button' className='button' onClick={handleOpenFieldModal} >
+        入力フィールド追加
+      </button>
       <ReactModal isOpen={fieldModal} contentLabel="Field Modal">
         <div className='modal'>
           <div class="modal-container">
@@ -41,12 +37,9 @@ export const Modal = ({ onAddInput, onAddTemplate }) => {
         </div>
       </ReactModal>
 
-      <li
-        className='row'
-        onClick={handleOpenTemplateModal}
-      >
-        <ChevronRightIcon/>テンプレート
-      </li>
+      <button type='button' className='button' onClick={handleOpenTemplateModal}>
+        テンプレート変更
+      </button>
       <ReactModal isOpen={templateModal} contentLabel="Template Modal">
         <div className='modal'>
           <div class="modal-container">
