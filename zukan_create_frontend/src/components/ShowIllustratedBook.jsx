@@ -95,6 +95,7 @@ export const ShowIllustratedBook = () => {
                   <textarea
                     type="text"
                     className='field-card-text'
+                    readOnly
                     defaultValue={object.illustratedBook.content}
                     style={{
                       backgroundColor: object.fieldDesign.attributes.backgroundColor,

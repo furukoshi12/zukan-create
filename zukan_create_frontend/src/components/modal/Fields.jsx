@@ -27,6 +27,7 @@ function Fields({ onAddInput }) {
             <textarea
               type="text"
               placeholder='sample'
+              readOnly
               style={{
                 backgroundColor: fieldDesign.attributes.backgroundColor,
                 color: fieldDesign.attributes.color,
