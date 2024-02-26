@@ -28,7 +28,7 @@ export const Modal = ({ onAddInput, onAddTemplate }) => {
       <button type='button' className='button' onClick={handleOpenFieldModal} >
         入力フィールド追加
       </button>
-      <ReactModal isOpen={fieldModal} contentLabel="Field Modal">
+      <ReactModal isOpen={fieldModal} contentLabel="Field Modal"  onRequestClose={handleCloseFieldModal} >
         <div className='modal'>
           <div class="modal-container">
             <Fields onAddInput={onAddInput}/>
@@ -40,7 +40,7 @@ export const Modal = ({ onAddInput, onAddTemplate }) => {
       <button type='button' className='button' onClick={handleOpenTemplateModal}>
         テンプレート変更
       </button>
-      <ReactModal isOpen={templateModal} contentLabel="Template Modal">
+      <ReactModal isOpen={templateModal} contentLabel="Template Modal" onRequestClose={handleCloseTemplateModal}>
         <div className='modal'>
           <div class="modal-container">
             <Templates onAddTemplate={onAddTemplate}/>
