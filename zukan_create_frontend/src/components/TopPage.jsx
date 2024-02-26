@@ -2,8 +2,12 @@ import { Box } from '@mui/material';
 import React from 'react'
 import { Link } from 'react-router-dom';
 import { GuestLogin } from './GuestLogin';
+import Write from "../images/7219.svg";
+import Read from "../images/9406_color.svg";
+import ex1 from "../images/ex_001.png";
+import ex2 from "../images/ex_002.png";
+import ex3 from "../images/ex_003.png";
 import { HowToUse } from './modal/HowToUse';
-
 
 function TopPage(){
 
@@ -27,35 +31,56 @@ function TopPage(){
         </nav>
       </div>
 
-      <div className='box-container'>
-        <Box className='left-box'>
+      <div className='first-content'>
+        <button className='button signup-button'>
+          <Link className='top-link' to="/signup">はじめる</Link>
+        </button>
+        <Link className='terms-link' to="/terms">利用規約</Link>
+      </div>
+
+      <h1 className='introduction'>サービス紹介</h1>
+      <div className='introduction-container'>
+        <Box className='introduction-content'>
+          <img alt='writing' src={Write} />
           <p>
             当サービスは出会った生き物を記録して <br/>
             自分だけの図鑑が作成できるサービスです。
-            </p>
+          </p>
           <GuestLogin />
         </Box>
-        <Box className='left-box'>
+        <Box className='introduction-content'>
+          <img alt='reading' src={Read} />
           <p>
             作成した図鑑は他のユーザーと <br />
             共有することができます。
           </p>
           <button className='button'>
-            <Link className='top-link' to="/illustratedbooks">図鑑を見る</Link>
+            <Link className='top-link' to="/illustratedbooks">図鑑をみる</Link>
           </button>
         </Box>
       </div>
-
-      <nav className='bottom-nav'>
-        <ul>
-          <li>
-            <Link to="/terms">利用規約</Link>
-          </li>
-        </ul>
-      </nav>
     </div>
-    <h1>図鑑の作り方</h1>
+
+    <h1>使い方</h1>
     <HowToUse />
+
+    <div className='explanation'>
+      <h1>書き方</h1>
+      <Box className='explanation-content'>
+        <h3>観察してみる</h3>
+        <img alt='ex1' src={ex1} />
+      </Box>
+
+      <Box className='explanation-content'>
+        <h3>調べてみる</h3>
+        <img alt='ex2' src={ex2} />
+      </Box>
+
+      <Box className='explanation-content'>
+        <h3>考えてみる</h3>
+        <img alt='ex3' src={ex3} />
+      </Box>
+    </div>
   </div>
   );
 }
