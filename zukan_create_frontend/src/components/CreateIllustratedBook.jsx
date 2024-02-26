@@ -1,23 +1,20 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Sidebar from './sidebar/Sidebar';
 import client from '../lib/api/client';
-import { WithContext as ReactTags } from 'react-tag-input';
 import AddField from './AddField';
 import AddTemplate from './AddTemplate';
 import { v4 as uuidv4 } from 'uuid';
 import { useDraggableAreaSize } from './customHooks/useDraggableAreaSize';
 import { ImageForm, ImagePreviewer } from './ImageForm';
 import Modal from './modal/Modal';
+import { TagInput } from './TagInput';
 
 export const CreateIllustratedBook = () => {
   const [title, setTitle] = useState('');
-  const [suggestions, setSuggestions] = useState([]);
   const [tags, setTags] = useState([]);
   const [inputs, setInputs] = useState([]);
   const [template, setTemplate] = useState(null)
-  const deleteDoubleArray = [...new Set(tags.map(tag => tag.text))];
-  const tagStr = deleteDoubleArray.join(' ');
   const history = useNavigate();
   const templateRef = useRef(null);
   const [areaSize, setAreaSize] = useState({ width: 0, height: 0 });
@@ -75,73 +72,62 @@ export const CreateIllustratedBook = () => {
     });
   };
 
-
   const updateTemplatePosition = (uuid, x, y) => {
     setTemplate((prevTemplate) => {
-      if (prevTemplate && prevTemplate.templateFieldDesigns !== null) {
-        const fieldDesignToUpdate = prevTemplate.fieldDesigns.find((fieldDesign) => fieldDesign.uuid === uuid);
-        if (!fieldDesignToUpdate) {
-          return prevTemplate;
-        }
-
-          const updatedTemplateFieldDesigns = prevTemplate.templateFieldDesigns.map((templateFieldDesign) => {
-            if (templateFieldDesign.xPosition === fieldDesignToUpdate.attributes.relationTemplates.map((relationTemplate) => relationTemplate.xPosition) ||
-                templateFieldDesign.yPosition === fieldDesignToUpdate.attributes.relationTemplates.map((relationTemplate) => relationTemplate.yPosition)
-            ) {
-              return {
-                ...templateFieldDesign,
+      if (prevTemplate && prevTemplate.fieldDesigns !== null) {
+        const updatedFieldDesigns = prevTemplate.fieldDesigns.map((fieldDesign) => {
+          if (fieldDesign.uuid === uuid) {
+            return {
+              ...fieldDesign,
+              positionAndSize: {
                 attributes: {
-                  ...templateFieldDesign.attributes,
+                  ...fieldDesign.positionAndSize.attributes,
                   xPosition: x / areaSize.width,
                   yPosition: y / areaSize.height,
                 }
-              };
-            }
-            return templateFieldDesign;
-          });
-    
-          return {
-            ...prevTemplate,
-            templateFieldDesigns: updatedTemplateFieldDesigns,
-          };
+              }
+            };
+          }
+          return fieldDesign;
+        });
+        return {
+          ...prevTemplate,
+          fieldDesigns: updatedFieldDesigns,
+        };
       } else {
         return prevTemplate;
       }
     });
-  };        
+  };
 
   const updateTemplateSize = (uuid, width, height) => {
     setTemplate((prevTemplate) => {
-      if (prevTemplate && prevTemplate.templateFieldDesigns !== null) {
-        const fieldDesignToUpdate = prevTemplate.fieldDesigns.find((fieldDesign) => fieldDesign.uuid === uuid);
-        if (!fieldDesignToUpdate) {
-          return prevTemplate;
-        }
-          const updatedTemplateFieldDesigns = prevTemplate.templateFieldDesigns.map((templateFieldDesign) => {
-            if (templateFieldDesign.width === fieldDesignToUpdate.attributes.relationTemplates.map((relationTemplate) => relationTemplate.width) ||
-                templateFieldDesign.height === fieldDesignToUpdate.attributes.relationTemplates.map((relationTemplate) => relationTemplate.height)
-            ) {
-              return {
-                ...templateFieldDesign,
+      if (prevTemplate && prevTemplate.fieldDesigns !== null) {
+        const updatedFieldDesigns = prevTemplate.fieldDesigns.map((fieldDesign) => {
+          if (fieldDesign.uuid === uuid) {
+            return {
+              ...fieldDesign,
+              positionAndSize: {
                 attributes: {
-                  ...templateFieldDesign.attributes,
+                  ...fieldDesign.positionAndSize.attributes,
                   width: width / areaSize.width,
                   height: height / areaSize.height,
                 }
-              };
-            }
-            return templateFieldDesign;
-          });
-    
-          return {
-            ...prevTemplate,
-            templateFieldDesigns: updatedTemplateFieldDesigns,
-          };
+              }
+            };
+          }
+          return fieldDesign;
+        });
+  
+        return {
+          ...prevTemplate,
+          fieldDesigns: updatedFieldDesigns,
+        };
       } else {
         return prevTemplate;
       }
     });
-  };        
+  };
 
   const onFieldContent = (uuid, value) => {
     if (inputs) {
@@ -163,21 +149,6 @@ export const CreateIllustratedBook = () => {
           }
           return fieldDesign;
         });
-        if (prevTemplate.templateFieldDesigns) {
-          const additionalContent = prevTemplate.templateFieldDesigns.map(templateFieldDesign => {
-            const height = templateFieldDesign.attributes.height
-            const width = templateFieldDesign.attributes.width
-            const xPosition = templateFieldDesign.attributes.xPosition
-            const yPosition = templateFieldDesign.attributes.yPosition
-            return{
-              height: height,
-              width: width,
-              x_position: xPosition,
-              y_position: yPosition,
-            };  
-          });
-              updateContent.push(...additionalContent);
-        }    
         return {
           ...prevTemplate,
           fieldDesigns: updateContent
@@ -186,70 +157,27 @@ export const CreateIllustratedBook = () => {
     }
   };
 
-  useEffect(() => {
-    const fetchTags = async () => {
-      try {
-        const response = await client.get('/tags');
-        const formattedData = response.data.data.map(tag => ({
-          id: tag.id,
-          text: tag.attributes.name
-        }));
-        setSuggestions(formattedData);
-      } catch (error) {
-        console.error('Error fetching tags: ', error);
-      }
-    };
-    fetchTags();
-  }, []);
-
   const handleChange = (e) => {
     setTitle(e.target.value);
-  };
-
-  const handleDelete = (i) => {
-    const newTags = [...tags];
-    newTags.splice(i, 1);
-    setTags(newTags);
-  };
-
-  const handleAddition = (tag) => {
-    setTags([...tags, tag]);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const usedTemplateFieldDesignIds = new Set();
-
-        let templateAttributes = template && template.fieldDesigns
-          ? template.fieldDesigns.reduce((acc, fieldDesign) => {
-            if (fieldDesign.id != null) {
-              const index = template.templateFieldDesigns.findIndex(tfd =>
-                tfd.relationships.fieldDesign.data.id === fieldDesign.id && !usedTemplateFieldDesignIds.has(tfd.id)
-              );
-            
-              if (index !== -1) {
-                const templateFieldDesign = template.templateFieldDesigns[index];
-                usedTemplateFieldDesignIds.add(templateFieldDesign.id);  
-              
-                acc.push({
-                  field_design_id: fieldDesign.id,
-                  content: fieldDesign.content,
-                  height: templateFieldDesign.attributes.height,
-                  width: templateFieldDesign.attributes.width,
-                  x_position: templateFieldDesign.attributes.xPosition,
-                  y_position: templateFieldDesign.attributes.yPosition,
-                });
-              } else {
-                acc.push({
-                  field_design_id: fieldDesign.id,
-                  content: fieldDesign.content
-                });
-              }
-            }
-            return acc;
-          }, [])
-          : [];
+      let templateAttributes = [];
+      if (template && template.fieldDesigns) {
+        templateAttributes = template.fieldDesigns.map(fieldDesign => {
+          const attributes = {
+            field_design_id: fieldDesign.id,
+            content: fieldDesign.content,
+            height: fieldDesign.positionAndSize.attributes.height,
+            width: fieldDesign.positionAndSize.attributes.width,
+            x_position: fieldDesign.positionAndSize.attributes.xPosition,
+            y_position: fieldDesign.positionAndSize.attributes.yPosition,  
+          };
+          return attributes;
+        });
+      }
 
       const inputAttributes = inputs.map(input => {
         const attributes = {
@@ -266,7 +194,7 @@ export const CreateIllustratedBook = () => {
       const contentAttributes = [...templateAttributes, ...inputAttributes];
       
       const generateParams = {
-        tags: tagStr,
+        tags: tags,
         illustrated_book: {
           title: title,
           image: image,
@@ -307,6 +235,10 @@ export const CreateIllustratedBook = () => {
     }
   };
 
+  const onTagStrChange = (a) => {
+    setTags(a)
+  }
+
 
   return (
     <div className='container'>
@@ -326,13 +258,7 @@ export const CreateIllustratedBook = () => {
             <AddTemplate areaSize={areaSize} onUpdateInputs={handleUpdateTemplate} templateData={template} onFieldContent={onFieldContent} onUpdatePosition={updateTemplatePosition} onUpdateSize={updateTemplateSize} />
             <AddField data={inputs} onRemoveItem={removeItem} onFieldContent={onFieldContent} onUpdatePosition={updateInputPosition} onUpdateSize={updateInputSize}/>
           </div>
-          <ReactTags
-            placeholder="タグを入れてEnterを押してください"
-            tags={tags}
-            suggestions={suggestions}
-            handleDelete={(i) => handleDelete(i)}
-            handleAddition={(tag) => handleAddition(tag)}
-          />
+          <TagInput onTagStrChange={onTagStrChange} />
           <button type="submit" className="button" onClick={(e) => handleSubmit(e)}>
             投稿
           </button>
