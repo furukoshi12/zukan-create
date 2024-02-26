@@ -22,7 +22,7 @@ function SidebarIcon() {
 
   return (
     <div className='SidebarIcon'>
-      <img src={Icon} />
+      <img src={Icon} alt='icon' />
       <p>{userName}</p>
     </div>
   );

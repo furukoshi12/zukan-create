@@ -6,6 +6,7 @@ import { useDraggableAreaSize } from './customHooks/useDraggableAreaSize';
 import { Box } from '@mui/material';
 import useResizable from './customHooks/useResizable';
 import useDraggable from './customHooks/useDraggable';
+import { TagInput } from './TagInput';
 
 export const UpdateIllustratedBook = () => {
   let { id } = useParams();
@@ -13,6 +14,8 @@ export const UpdateIllustratedBook = () => {
   const [title, setTitle] = useState('');
   const [template, setTemplate] = useState(null)
   const [usedFileds, setUsedFields] = useState([]);
+  const [tags, setTags] = useState([]);
+  const [existingTags, setExistingTags] = useState([]);
   const templateRef = useRef(null);
   const history = useNavigate();
   const [areaSize, setAreaSize] = useState({ width: 0, height: 0 });
@@ -84,6 +87,8 @@ export const UpdateIllustratedBook = () => {
   
         setTitle(attributes.title);
         setTemplate(relationships.template);
+        setExistingTags(illustratedBookData.attributes.tags);
+        setTags(illustratedBookData.attributes.tags);
       } catch (error) {
         console.error(error);
       }
@@ -157,6 +162,10 @@ export const UpdateIllustratedBook = () => {
     });
   };
 
+  const onTagStrChange = (a) => {
+    setTags(a)
+  }
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const contents = illustratedBook.illustratedBookFieldDesigns.map(design => ({
@@ -173,6 +182,7 @@ export const UpdateIllustratedBook = () => {
 
     try {
       const params = {
+        tags: tags,
         illustrated_book: {
           title: title,
           template_id: template.id,
@@ -254,6 +264,7 @@ export const UpdateIllustratedBook = () => {
               </ul>
             )}
           </div>
+          <TagInput onTagStrChange={onTagStrChange} existingTags={existingTags} />
           <button type="submit" className="button" onClick={(e) => handleSubmit(e)}>
             投稿
           </button>

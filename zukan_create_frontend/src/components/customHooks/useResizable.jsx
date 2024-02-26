@@ -7,7 +7,7 @@ const useResizable = (selector, onUpdateSize) => {
 
     const resizableInstance = interact(selector)
     .resizable({
-      edges: { top: false, left: false, bottom: true, right: true },
+      edges: { top: true, left: true, bottom: true, right: true },
       onmove: (event) => {
         const target = event.target;
         const newWidth = parseFloat(event.rect.width);

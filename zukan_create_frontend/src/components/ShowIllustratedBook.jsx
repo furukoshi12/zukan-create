@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react'
 import Sidebar from './sidebar/Sidebar'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import client from '../lib/api/client';
 import { useDraggableAreaSize } from './customHooks/useDraggableAreaSize';
 import { Box } from '@mui/material';
@@ -11,6 +11,7 @@ export const ShowIllustratedBook = () => {
   const [usedFileds, setUsedFields] = useState([]);
   const templateRef = useRef(null);
   const [areaSize, setAreaSize] = useState({ width: 0, height: 0 });
+  const history = useNavigate(null);
 
   const onAreaSize = (size) => {
     setAreaSize(size);
@@ -44,7 +45,7 @@ export const ShowIllustratedBook = () => {
   if (!illustratedBook || !illustratedBook.illustratedBookFieldDesigns) {
     return <div>Loading...</div>;
   }
-  
+
   const showPost = illustratedBook.illustratedBookFieldDesigns.map((design) => {
     const fieldDesign = usedFileds.find((field) => field.id === design.fieldDesignId.toString());
     if (fieldDesign) {
@@ -60,6 +61,10 @@ export const ShowIllustratedBook = () => {
       return null;
     }
   }).filter(item => item !== null);
+
+  const goBack = () => {
+    history(-1);
+  }
 
   return (
     <div className='container'>
@@ -88,15 +93,17 @@ export const ShowIllustratedBook = () => {
             </Box>
           }
           {showPost && (
-            <ul>
+            <ul style={{display: 'flex'}}>
               {showPost.map((object, index) => (
                 <li key={index} className='field-card' style={{ position: 'absolute', top: object.illustratedBook.yPosition * areaSize.height, left: object.illustratedBook.xPosition * areaSize.width }} >
                   <label>{object.fieldDesign.attributes.label}</label>
                   <textarea
                     type="text"
                     className='field-card-text'
+                    readOnly
                     defaultValue={object.illustratedBook.content}
                     style={{
+                      resize: 'none',
                       backgroundColor: object.fieldDesign.attributes.backgroundColor,
                       color: object.fieldDesign.attributes.color,
                       borderColor: object.fieldDesign.attributes.borderColor,
@@ -113,6 +120,7 @@ export const ShowIllustratedBook = () => {
             </ul>
           )}
         </div>
+        <button type='button' className='button' onClick={goBack} >戻る</button>
       </div>
     </div>
   )

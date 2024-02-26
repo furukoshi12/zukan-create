@@ -1,9 +1,12 @@
 import React from 'react'
 import { SidebarData, SidebarFooterData } from './SidebarData';
 import SidebarIcon from './SidebarIcon';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
+import { HowToUseModal } from '../modal/HowToUseModal';
 
 function Sidebar() {
+  const location = useLocation();
+
   return (
     <div className='wrapper' >
       <div className='Sidebar'>
@@ -28,6 +31,8 @@ function Sidebar() {
               </li>
             );
           })}
+
+          {location.pathname === '/new' && <HowToUseModal />}
 
           {SidebarFooterData.map((value, key) => {
             return(

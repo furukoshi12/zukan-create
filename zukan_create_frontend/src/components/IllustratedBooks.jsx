@@ -66,9 +66,9 @@ function IllustratedBooks(){
         <ul className='grid'>
           {illustratedBooks && illustratedBooks.map(illustratedBook => (
             <li key={illustratedBook.id} className='illustrated-book-card'>
-              <Box>
+              <Box onClick={() => handleSelectIllustratedBook(illustratedBook)}>
                 <img src={illustratedBook.attributes.image.url || defaultImagePath} alt='Preview' style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
-                <p className='title' onClick={() => handleSelectIllustratedBook(illustratedBook)}>{illustratedBook.attributes.title}</p>
+                <p className='title' >{illustratedBook.attributes.title}</p>
               </Box>
               <div className="tags">
                 {illustratedBook.attributes.tags.map((tag, index) => (

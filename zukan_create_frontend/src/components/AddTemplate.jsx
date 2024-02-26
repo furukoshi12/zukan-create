@@ -9,35 +9,22 @@ function AddTemplate({ onUpdateInputs, onFieldContent, areaSize, templateData, o
 
   useEffect (() => {
     if (templateData) {
-      const templateFieldDesigns = templateData.templateFieldDesigns
-      const fieldDesigns = templateData.fieldDesigns;
+      const inputs = templateData.fieldDesigns;
 
-      const usedUuids = new Set();
-
-      const inputsWithPositionAndStyle = templateFieldDesigns.map((design) => {
-        const fieldDesign = fieldDesigns.find((fd) => {
-          return fd.id === design.relationships.fieldDesign.data.id && !usedUuids.has(fd.uuid)
-        });
-
-        if (fieldDesign) {
-          usedUuids.add(fieldDesign.uuid);
-        }
-        
+      const positionSize = inputs.map(input => {
         return {
-          ...fieldDesign.attributes,
-          templateId: design.relationships.template.data.id,
-          xPosition: design.attributes.xPosition,
-          yPosition: design.attributes.yPosition,
-          width: design.attributes.width,
-          height: design.attributes.height,
-          id: design.id,
-          uuid: fieldDesign.uuid
-        };
-      });
+          ...input.attributes,
+          uuid: input.uuid,
+          xPosition: input.positionAndSize.attributes.xPosition,
+          yPosition: input.positionAndSize.attributes.yPosition,
+          width: input.positionAndSize.attributes.width,
+          height: input.positionAndSize.attributes.height,  
+        }
+      })
 
-      setInputs(inputsWithPositionAndStyle);
+      setInputs(positionSize)
     }
-  }, [templateData])
+  }, [templateData]);
 
   const handleReset = (uuid) => {
     setInputs((prevInputs) => {
@@ -45,10 +32,8 @@ function AddTemplate({ onUpdateInputs, onFieldContent, areaSize, templateData, o
       return updateInputs;
     });
 
-    const deleteInput = inputs.find((input) => input.uuid === uuid)
-    const FieldDesignTemplateDatas = templateData.fieldDesigns.filter((templateData) => templateData.uuid !== uuid)
-    const TempFieldTemplateDatas = templateData.templateFieldDesigns.filter((templateData) => deleteInput.xPosition !== templateData.attributes.xPosition && deleteInput.yPosition !== templateData.attributes.yPosition)
-    const newTemplate = {id: templateData.id,fieldDesigns: FieldDesignTemplateDatas, templateFieldDesigns: TempFieldTemplateDatas}
+    const updateInputs = templateData.fieldDesigns.filter((input) => input.uuid !== uuid);
+    const newTemplate = {id: templateData.id, fieldDesigns: updateInputs}
     onUpdateInputs(newTemplate)
   }
 

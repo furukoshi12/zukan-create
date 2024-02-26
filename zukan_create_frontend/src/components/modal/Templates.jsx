@@ -23,23 +23,24 @@ function Templates({ onAddTemplate }) {
 
         const fieldDesignsCount = response.data.data.relationships.fieldDesigns.data;
         const includedFieldDesigns = response.data.included.filter(obj => obj.type === 'field_design');
-        const fieldDesignObjects = fieldDesignsCount.map(relationship => {
+        const fieldDesignObjects = fieldDesignsCount.map((relationship, index) => {
           const fieldDesign = includedFieldDesigns.find(included => included.id === relationship.id);
+          const positionAndSize = templateFieldDesignObjects[index];
           return {
             ...fieldDesign,
             uuid: uuidv4(),
+            positionAndSize,
           };
         });
         onAddTemplate({
           id: templateId,
-          templateFieldDesigns: templateFieldDesignObjects, 
           fieldDesigns: fieldDesignObjects,
         });
       })
       .catch((error) => {
         console.error(error);
       });
-    };
+  };
 
   return (
     <>

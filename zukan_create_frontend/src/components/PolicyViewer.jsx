@@ -2,7 +2,8 @@ import React from 'react'
 import { useNavigate } from 'react-router-dom';
 
 export const PolicyViewer = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+  
   return (
     <div>
       <div>
@@ -68,7 +69,7 @@ export const PolicyViewer = () => {
         className='policy-button'
         type='button'                
         onClick={() => {
-          navigate('/login');
+          navigate(-1);
         }}
       >
         戻る
