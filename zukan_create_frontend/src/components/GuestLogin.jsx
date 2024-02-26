@@ -1,10 +1,8 @@
 import React from 'react'
 import client from '../lib/api/client'
-import { useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom';
 
 export const GuestLogin = () => {
-  const history = useNavigate();
-
   const handleGuestLogin = async() => {
     try {
       const response = await client.post('/guest_login')
@@ -20,15 +18,13 @@ export const GuestLogin = () => {
     if (accessToken) {
       localStorage.setItem('access_token', accessToken);
       localStorage.setItem('user_role', role)
-
-      history('/new')
     };
   }
 
   return (
     <>
       <button type='button' className='button' onClick={handleGuestLogin}>
-        ゲストで図鑑作成
+        <Link className='top-link' to="/new">ゲストでつくる</Link>
       </button>
     </>
   )
