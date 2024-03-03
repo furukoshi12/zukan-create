@@ -23,7 +23,7 @@ function MyPage() {
 
   const handleSearchResults = async (searchTerm) => {
     try {
-      const response = await client.get('/illustrated_books', { params: {search: searchTerm }});
+      const response = await client.get('/user/illustrated_books', { params: {search: searchTerm }});
       const data = response.data.data;
 
       if (data.length === 0) {
