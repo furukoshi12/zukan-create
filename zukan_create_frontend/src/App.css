@@ -252,7 +252,6 @@ h1 {
   height: 100%;
   width: 100%;
   max-width: 300px;
-  min-width: 190px;
   background-color: #f9a980;
   font-family: 'MochiyPopOne';
   overflow: auto;
@@ -372,6 +371,7 @@ h1 {
   flex-wrap: wrap;
 }
 
+/*tag*/
 .tag {
   color: #2980b9;
   margin-right: 10px;

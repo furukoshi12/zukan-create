@@ -3,14 +3,13 @@ import Sidebar from './sidebar/Sidebar'
 import client from '../lib/api/client'
 import LikeButton from './LikeButton';
 import { useNavigate } from 'react-router-dom';
-import { Alert, Box, Snackbar } from '@mui/material';
+import { Box } from '@mui/material';
 import defaultImagePath from '../images/default.webp'
 import { SearchComponent } from './SearchComponent';
 
 
 function IllustratedBooks(){
   const [illustratedBooks, setIllustratedBooks] = useState([]);
-  const [flashMessage, setFlashMessage] = useState('');
   const history = useNavigate();
 
   const handleSearchResults = async (searchTerm) => {
@@ -19,19 +18,13 @@ function IllustratedBooks(){
       const data = response?.data?.data;
 
       if (data && data.length === 0) {
-        setFlashMessage('お探しの図鑑は見つかりませんでした。')
         setIllustratedBooks([]);
       } else if (data) {
-        setFlashMessage('');
         setIllustratedBooks(data);
       }
     } catch (error) {
       console.error('Error fetching search results:', error);
     }
-  };
-
-  const handleClose = () => {
-    setFlashMessage('');
   };
 
   useEffect(() => {
@@ -57,11 +50,6 @@ function IllustratedBooks(){
         <h1>みんなの図鑑</h1>
           <div className='search'>
             <SearchComponent setSearchTerm={handleSearchResults}/>
-            <Snackbar open={!!flashMessage} onClose={handleClose} anchorOrigin={{ vertical: 'top', horizontal: 'left' }}autoHideDuration={6000}>
-              <Alert severity="info" sx={{ width: '100%' }}>
-                {flashMessage}
-              </Alert>
-            </Snackbar>
           </div>
         <ul className='grid'>
           {illustratedBooks && illustratedBooks.map(illustratedBook => (
