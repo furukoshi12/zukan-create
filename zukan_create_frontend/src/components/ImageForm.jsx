@@ -41,15 +41,7 @@ export const ImagePreviewer = ({ imageFile, onReset, inputRef, imagePosition, on
             maxWidth: '40%',
           }}
         >
-          <img
-            src={preview} 
-            alt='Preview'
-            style={{
-              width: '100%',
-              height: '100%',
-              objectFit: 'contain',
-            }}
-          />
+          <img src={preview} alt='Preview' />
           <IconButton color="inherit" onClick={handleReset}>
             <CancelIcon />
           </IconButton>
@@ -74,9 +66,9 @@ export const ImageForm = ({ setImage, inputRef }) => {
         <input
           type='file'
           id="upload-button"
+          className='file-input'
           accept='image/*'
           ref={inputRef}
-          style={{ display: 'none' }}
           onChange={onFileChange}
         />
         <IconButton color="inherit" component="span">

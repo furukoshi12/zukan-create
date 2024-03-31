@@ -2,10 +2,12 @@ import React, { useState } from 'react';
 import ReactModal from 'react-modal';
 import Fields from './Fields';
 import Templates from './Templates';
+import { TextReader } from './TextReader';
 
 export const Modal = ({ onAddInput, onAddTemplate }) => {
   const [fieldModal, setFieldModal] = useState(false);
   const [templateModal, setTemplateModal] = useState(false);
+  const [textReaderModal, setTextReaderModal] = useState(false);
 
   const handleOpenFieldModal = () => {
     setFieldModal(true);
@@ -23,6 +25,16 @@ export const Modal = ({ onAddInput, onAddTemplate }) => {
     setTemplateModal(false);
   }
 
+  const handleOpenTextReaderModal = () => {
+    setTextReaderModal(true);
+  }
+
+  const handleCloseTextReaderModal = () => {
+    setTextReaderModal(false);
+  }
+
+
+
   return (
     <div className='modal-list'>
       <button type='button' className='button' onClick={handleOpenFieldModal} >
@@ -33,7 +45,6 @@ export const Modal = ({ onAddInput, onAddTemplate }) => {
           <div class="modal-container">
             <Fields onAddInput={onAddInput}/>
           </div>
-          <button className="button" onClick={handleCloseFieldModal}>Close</button>
         </div>
       </ReactModal>
 
@@ -45,7 +56,17 @@ export const Modal = ({ onAddInput, onAddTemplate }) => {
           <div class="modal-container">
             <Templates onAddTemplate={onAddTemplate}/>
           </div>
-          <button className="button" onClick={handleCloseTemplateModal}>Close</button>
+        </div>
+      </ReactModal>
+
+      <button type='button' className='button' onClick={handleOpenTextReaderModal}>
+        テキストリーダー
+      </button>
+      <ReactModal isOpen={textReaderModal} contentLabel="Template Modal" onRequestClose={handleCloseTextReaderModal}>
+        <div className='modal'>
+          <div class="modal-container">
+            <TextReader/>
+          </div>
         </div>
       </ReactModal>
     </div>
