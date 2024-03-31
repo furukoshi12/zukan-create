@@ -13,7 +13,7 @@ const baseURL = process.env.NODE_ENV === 'production'
 
 const client = applyCaseMiddleware(axios.create({
   baseURL: baseURL,
-  withCredentials: true
+  withCredentials: true,
 }), options);
 
 export default client;

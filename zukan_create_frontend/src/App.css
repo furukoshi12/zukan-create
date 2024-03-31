@@ -491,7 +491,74 @@ h1 {
   margin-bottom: 10px;
 }
 
+.field-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
 .template-card {
   flex-basis: calc(25% - 10px);
   margin-bottom: 10px;
+}
+
+/*ファイル選択ダイアログ*/
+.file-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.file-container button {
+  max-width: 300px;
+}
+
+.file-label {
+  width: min(75vw, 730px);
+  display: flex;
+  align-items: center;
+  margin-inline: auto;
+  color: #f9a980;
+  border: solid;
+  border-radius: 10px;
+  padding: 10px;
+  font-size: 3vw;
+  justify-content: center;
+}
+
+.file-label svg {
+  font-size: 3.5vw;
+}
+
+.file-input {
+  display: none;
+}
+
+.file-icon {
+  font-size: 4vw;
+}
+
+.text-preview {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.preview-box {
+  position: relative;
+  width: 75%;
+}
+
+.text-preview-container {
+  border: 2px solid #778899;
+  display: flex;
+  justify-content: center;
+  padding: 10px;
+  font-size: 2vw;
+}
+
+.text-preview-container button {
+  position: absolute;
+  bottom: 0;
+  right: 0
 }
