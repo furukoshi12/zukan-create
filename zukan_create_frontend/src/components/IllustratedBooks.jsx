@@ -37,7 +37,7 @@ function IllustratedBooks(){
         console.error('API_reuest_error', error);
       });
     }
-  }, []);
+  }, [illustratedBooks.length]);
 
   const handleSelectIllustratedBook = (illustratedBook) => {
     history(`/illustrated_books/${illustratedBook.id}`);

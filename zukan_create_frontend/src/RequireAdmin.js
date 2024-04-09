@@ -18,7 +18,7 @@ export function RequireAdmin({ children }) {
         console.error('Error fetching user data:', error.response)
       })
     }
-  }, [localStorage.getItem('accessToken')]);
+  }, [localStorage.getItem('access_token')]);
 
   useEffect(() => {
     if (user && user.role !== 'admin') {

@@ -14,10 +14,12 @@ import TopPage from './components/TopPage';
 import { UpdateIllustratedBook } from './components/UpdateIllustratedBook';
 import { RequireAdmin } from './RequireAdmin';
 import { PolicyViewer } from './components/PolicyViewer';
+import useAnalytics from './services/analytics';
 
 function App() {
   return (
     <Router>
+      <AnalyticsTracker>
         <Routes>
           <Route path="/" element={<TopPage />} />
           <Route path="/signup" element={<SignUp />} />
@@ -39,9 +41,15 @@ function App() {
               </Routes>
             </RequireAdmin>
           } />
-      </Routes>
+        </Routes>
+      </AnalyticsTracker>
     </Router>
   );
+}
+
+function AnalyticsTracker({ children }) {
+  useAnalytics(); 
+  return <>{children}</>;
 }
 
 export default App;
