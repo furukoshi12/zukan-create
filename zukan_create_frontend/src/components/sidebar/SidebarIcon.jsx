@@ -18,7 +18,7 @@ function SidebarIcon() {
           console.error('Error fetching user data:', error.response)
         })
       }
-  }, [localStorage.getItem('accessToken')]);
+  }, [localStorage.getItem('access_token')]);
 
   return (
     <div className='SidebarIcon'>
