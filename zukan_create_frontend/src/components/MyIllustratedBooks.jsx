@@ -5,6 +5,7 @@ import { Delete, Edit } from '@mui/icons-material';
 import { Box, IconButton } from '@mui/material';
 import defaultImagePath from '../images/default.webp'
 import { useNavigate } from 'react-router-dom';
+import { XShareButton } from './XShareButton';
 
 
 function MyIllustratedBooks({ illustratedBooks }) {
@@ -50,6 +51,7 @@ function MyIllustratedBooks({ illustratedBooks }) {
             <IconButton type="submit" onClick={() => handleDelete(illustratedBook.id)}>
               <Delete />
             </IconButton>
+            <XShareButton title={illustratedBook.attributes.title} id={illustratedBook.id} />
             </div>
           </li>
         ))}
