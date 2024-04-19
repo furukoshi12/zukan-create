@@ -23,7 +23,7 @@ https://www.figma.com/file/BFcNSvPwZTvkSdirEw6Ptb/%E5%9B%B3%E9%91%91%E3%82%AF%E3
 
 ■ ユーザーの獲得について
 x(旧twitter)やtimesなどSNSで発信
-Qittaで発信
+Qittaで発信：https://qiita.com/furukoshi12/items/6ba4c489c4222fe36d5e
 知り合いへ直接宣伝
 
 ■ サービスの差別化ポイント・推しポイント
